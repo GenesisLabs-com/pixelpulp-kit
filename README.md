@@ -1,6 +1,6 @@
-<h3 align="center">ReservoirKit</h3>
+<h3 align="center">Pixelpulp Kit</h3>
   <p align="center">
-    ReservoirKit is a developer toolkit for buying, selling and managing NFTs.
+    Pixelpulp Kit is a developer toolkit for buying, selling and managing NFTs.
   </p>
 
 ### Installing ReservoirKit
