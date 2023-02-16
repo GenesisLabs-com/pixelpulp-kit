@@ -128,7 +128,7 @@ export const Modal = forwardRef<ElementRef<typeof Dialog>, Props>(
                 style="body2"
                 css={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}
               >
-                Powered by <Logo />
+                Powered by 
               </Text>
             </Anchor>
           </Flex>

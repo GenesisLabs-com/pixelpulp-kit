@@ -488,7 +488,7 @@ export function CartPopover({
                           gap: 4,
                         }}
                       >
-                        Powered by <Logo />
+                        Powered by 
                       </Text>
                     </Anchor>
                   </Flex>

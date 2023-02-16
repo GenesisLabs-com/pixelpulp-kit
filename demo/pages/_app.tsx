@@ -24,8 +24,8 @@ import {
 } from '@reservoir0x/reservoir-kit-ui'
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY
 const API_BASE =
-  process.env.NEXT_PUBLIC_API_BASE || 'https://api.reservoir.tools'
-const CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID || 1
+  process.env.NEXT_PUBLIC_API_BASE || 'https://api-goerli.reservoir.tools'
+const CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID || 5
 const SOURCE = process.env.NEXT_PUBLIC_SOURCE || 'reservoirkit.demo'
 const FEE = process.env.NEXT_PUBLIC_MARKETPLACE_FEE
   ? +process.env.NEXT_PUBLIC_MARKETPLACE_FEE

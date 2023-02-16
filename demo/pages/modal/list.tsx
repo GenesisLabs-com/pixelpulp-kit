@@ -13,7 +13,7 @@ const DEFAULT_TOKEN_ID = process.env.NEXT_PUBLIC_DEFAULT_TOKEN_ID || '39'
 const NORMALIZE_ROYALTIES = process.env.NEXT_PUBLIC_NORMALIZE_ROYALTIES
   ? process.env.NEXT_PUBLIC_NORMALIZE_ROYALTIES === 'true'
   : false
-const chainId: number = Number(process.env.NEXT_PUBLIC_CHAIN_ID || 1)
+const chainId: number = Number(process.env.NEXT_PUBLIC_CHAIN_ID || 5)
 
 let mainnetSymbol = 'ETH'
 
