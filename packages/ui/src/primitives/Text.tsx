@@ -57,8 +57,8 @@ export default styled('span', {
         fontFamily: '$headline',
       },
       subtitle1: {
-        fontWeight: 500,
-        fontSize: 16,
+        fontWeight: 600,
+        fontSize: 18,
       },
       subtitle2: {
         fontWeight: 500,

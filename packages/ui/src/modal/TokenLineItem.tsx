@@ -50,7 +50,7 @@ const TokenLineItem: FC<TokenLineItemProps> = ({
     : (collection?.image as string)
 
   return (
-    <Box css={{ p: '$4', borderBottom: '1px solid $borderColor' }}>
+    <Box css={{ pt: '$4' }}>
       <TokenPrimitive
         img={img}
         name={name}

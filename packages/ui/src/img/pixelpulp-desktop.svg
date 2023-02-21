@@ -1,8 +1,4 @@
-import React from 'react'
-
-const ReservoirLogoBlackText = () => {
-  return (
-    <svg width="175" height="38" viewBox="0 0 175 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="175" height="38" viewBox="0 0 175 38" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
         d="M54.2027 19.8444H50.9489V27.3388H47.0654V7.81104H54.2027C58.8209 7.81104 61.13 10.4499 61.13 13.8277C61.235 16.7833 59.2407 19.8444 54.2027 19.8444ZM54.0977 16.6777C56.3019 16.6777 57.2465 15.6221 57.2465 13.8277C57.2465 12.0333 56.3019 10.9777 54.0977 10.9777H51.0539V16.6777H54.0977Z"
         fill="#7A3EDB" />
@@ -76,7 +72,3 @@ const ReservoirLogoBlackText = () => {
         </linearGradient>
     </defs>
 </svg>
-  )
-}
-
-export default ReservoirLogoBlackText

@@ -30,7 +30,7 @@ import {
   faShoppingCart,
 } from '@fortawesome/free-solid-svg-icons'
 import { ProviderOptionsContext } from '../../ReservoirKitProvider'
-import ReservoirLogoWhiteText from '../../img/ReservoirLogoWhiteText'
+// import ReservoirLogoWhiteText from '../../img/ReservoirLogoWhiteText'
 import CartItem from './CartItem'
 import CartToast from './CartToast'
 import CartPopoverRenderer from './CartPopoverRenderer'
@@ -49,11 +49,11 @@ const scaleDown = keyframes({
   '100%': { opacity: 0, transform: 'scale(0.9) translateY(-10px)' },
 })
 
-const Logo = styled(ReservoirLogoWhiteText, {
-  '& .letter': {
-    fill: '$reservoirLogoColor',
-  },
-})
+// const Logo = styled(ReservoirLogoWhiteText, {
+//   '& .letter': {
+//     fill: '$reservoirLogoColor',
+//   },
+// })
 
 type Props = {
   trigger: ReactNode
@@ -480,7 +480,7 @@ export function CartPopover({
                   >
                     <Anchor href="https://reservoir.tools/" target="_blank">
                       <Text
-                        style="body2"
+                        style="body3"
                         color="subtle"
                         css={{
                           display: 'inline-flex',

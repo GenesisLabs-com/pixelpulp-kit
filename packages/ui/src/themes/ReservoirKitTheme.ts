@@ -73,8 +73,11 @@ export interface ReservoirKitThemeColors {
   headerBackground: string
   footerBackground: string
   contentBackground: string
+  priceBackground?: string
   wellBackground: string
   popoverBackground: string
+  closeBorder: string
+  pColor: string
 }
 
 export type ReservoirKitOverrides = {
@@ -90,10 +93,13 @@ export type ReservoirKitOverrides = {
   textColor?: string
   headerBackground?: string
   contentBackground?: string
+  priceBackground?: string
   footerBackground?: string
   overlayBackground?: string
   popoverBackground?: string
   borderColor?: string
+  closeBorder: string
+  pColor: string
   ethIcon?: ReservoirKitTheme['assets']['ethIcon']
 }
 
@@ -107,9 +113,9 @@ export const sharedThemeConfig = (
       borderRadius: overrides?.borderRadius || '4px',
     },
     fonts: {
-      body: overrides?.font || 'sans-serif',
-      button: overrides?.buttonFont || overrides?.font || 'sans-serif',
-      headline: overrides?.headlineFont || overrides?.font || 'sans-serif',
+      body: overrides?.font || 'Poppins',
+      button: overrides?.buttonFont || overrides?.font || 'Poppins',
+      headline: overrides?.headlineFont || overrides?.font || 'Poppins',
     },
   }
 }

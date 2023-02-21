@@ -38,11 +38,16 @@ type Props = {
   | 'onFocusCapture'
 >
 
-const Logo = styled(ReservoirLogoWhiteText, {
-  '& .letter': {
-    fill: '$reservoirLogoColor',
-  },
-})
+// const Logo = styled(ReservoirLogoWhiteText, {
+//   '& .letter': {
+//     fill: '$reservoirLogoColor',
+//   },
+// })
+
+// const Img = styled('img', {
+//   height: 56,
+//   width: 56,
+// })
 
 export const Modal = forwardRef<ElementRef<typeof Dialog>, Props>(
   (
@@ -74,12 +79,12 @@ export const Modal = forwardRef<ElementRef<typeof Dialog>, Props>(
       >
         <Flex
           css={{
-            p: 16,
+            p: '1.625rem',
             backgroundColor: '$headerBackground',
-            alignItems: 'center',
+            alignItems: 'start',
             justifyContent: 'space-between',
-            borderTopRightRadius: '$borderRadius',
-            borderTopLeftRadius: '$borderRadius',
+            borderTopRightRadius: '0.75rem',
+            borderTopLeftRadius: '0.75rem',
           }}
         >
           <Title css={{ alignItems: 'center', display: 'flex' }}>
@@ -87,17 +92,38 @@ export const Modal = forwardRef<ElementRef<typeof Dialog>, Props>(
               <Button
                 color="ghost"
                 size="none"
-                css={{ mr: '$2', color: '$neutralText' }}
+                css={{
+                  mr: '$2',
+                  color: '$neutralText',
+                  border: '1px solid #eee',
+                }}
                 onClick={onBack}
               >
                 <FontAwesomeIcon icon={faChevronLeft} width={16} height={16} />
               </Button>
             )}
-            <Text style="h6">{title}</Text>
+            <Text style="h4">{title}</Text>
           </Title>
           <DialogPrimitive.Close asChild>
-            <Button color="ghost" size="none" css={{ color: '$neutralText' }}>
-              <FontAwesomeIcon icon={faClose} width={16} height={16} />
+            <Button
+              size="none"
+              css={{
+                display: 'flex',
+                color: '$closeBorder',
+                borderRadius: '2rem',
+                border: '2px solid $closeBorder',
+                backgroundColor: 'transparent !important',
+                fontSize: '0.75rem',
+                width: '1.125rem',
+                height: '1.125rem',
+              }}
+            >
+              <FontAwesomeIcon
+                icon={faClose}
+                color="$closeBorder"
+                width={10}
+                height={10}
+              />
             </Button>
           </DialogPrimitive.Close>
         </Flex>
@@ -115,21 +141,32 @@ export const Modal = forwardRef<ElementRef<typeof Dialog>, Props>(
             css={{
               mx: 'auto',
               alignItems: 'center',
-              justifyContent: 'center',
+              justifyContent: 'space-between',
               backgroundColor: '$footerBackground',
               py: 10.5,
+              px: '1.5rem',
+              boxSizing: 'border-box',
               visibility: '$poweredByReservoirVisibility',
-              borderBottomRightRadius: '$borderRadius',
-              borderBottomLeftRadius: '$borderRadius',
+              borderBottomRightRadius: '0.75rem',
+              borderBottomLeftRadius: '0.75rem',
+              display: 'flex',
+              width: '100%',
             }}
           >
-            <Anchor href="https://reservoir.tools/" target="_blank">
-              <Text
-                style="body2"
-                css={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}
-              >
-                Powered by 
-              </Text>
+            <Text
+              style="body3"
+              css={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}
+            >
+              Powered by
+            </Text>
+            <Anchor
+              href="#"
+              target="_blank"
+              style={{
+                display: 'flex',
+              }}
+            >
+              <ReservoirLogoWhiteText />
             </Anchor>
           </Flex>
         )}

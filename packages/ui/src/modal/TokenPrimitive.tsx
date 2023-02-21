@@ -69,11 +69,13 @@ const TokenPrimitive: FC<Props> = ({
             src={img}
             alt={name}
             css={{
-              borderRadius: 4,
+              borderRadius: 12,
               overflow: 'hidden',
               visibility: !img || img.length === 0 ? 'hidden' : 'visible',
               flexShrink: 0,
               objectFit: 'cover',
+              width: 60,
+              height: 60,
             }}
           />
           <Grid css={{ rowGap: 2 }}>
@@ -97,9 +99,28 @@ const TokenPrimitive: FC<Props> = ({
             <Img
               src={source}
               alt="Source Icon"
-              css={{ w: 17, h: 17, borderRadius: 99999, overflow: 'hidden' }}
+              css={{ w: 23, h: 23, borderRadius: 99999, overflow: 'hidden' }}
             />
           )}
+        </Grid>
+      </Flex>
+      <Flex
+        css={{
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          backgroundColor: '$priceBackground',
+          borderTopLeftRadius: '0.75rem',
+          borderTopRightRadius: '0.75rem',
+          padding: '1rem',
+          mt: '1rem',
+        }}
+      >
+        <Flex css={{ alignItems: 'center', gap: 8 }}>
+          <Text style="subtitle2" color="subtle">
+            Price
+          </Text>
+        </Flex>
+        <Grid css={{ justifyItems: 'end', alignContent: 'start', rowGap: 4 }}>
           {price ? (
             <FormatCryptoCurrency
               amount={price}

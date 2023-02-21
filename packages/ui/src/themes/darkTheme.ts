@@ -70,7 +70,7 @@ export default function (overrides?: ReservoirKitOverrides): ReservoirKitTheme {
 
       // general colors
       borderColor: overrides?.borderColor || '$neutralBorder',
-      textColor: overrides?.textColor || '$neutralTextContrast',
+      textColor: overrides?.textColor || 'white',
       focusColor: '$neutralTextContrast',
       errorText: '$red12',
       errorAccent: '$red10',
@@ -78,13 +78,16 @@ export default function (overrides?: ReservoirKitOverrides): ReservoirKitTheme {
 
       // component colors
       reservoirLogoColor: '#ECEDEE',
-      inputBackground: '$neutralBgHover',
+      inputBackground: '#282A31  ',
       buttonTextColor: overrides?.buttonTextColor || 'white',
       buttonTextHoverColor: overrides?.buttonTextHoverColor || 'white',
       overlayBackground: overrides?.overlayBackground || '$blackA10',
-      headerBackground: overrides?.headerBackground || '$neutralBgHover',
-      footerBackground: overrides?.footerBackground || '$neutralBgSubtle',
-      contentBackground: overrides?.contentBackground || '$neutralBg',
+      headerBackground: overrides?.headerBackground || '#19191B',
+      footerBackground: overrides?.footerBackground || '#282A31',
+      contentBackground: overrides?.contentBackground || '#19191B',
+      priceBackground: overrides?.priceBackground || '#282A31',
+      closeBorder: overrides?.closeBorder || '#A1A1A1',
+      pColor: overrides?.pColor || '#979696', 
       wellBackground: overrides?.wellBackground || '$neutralBase',
       popoverBackground: overrides?.popoverBackground || '$neutralBgActive',
     },

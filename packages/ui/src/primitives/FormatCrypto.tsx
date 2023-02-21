@@ -18,17 +18,17 @@ const FormatCrypto: FC<Props> = ({
   maximumFractionDigits = 4,
   decimals = 18,
   css,
-  textStyle = 'subtitle2',
+  textStyle = 'subtitle1',
   textColor = 'base',
   children,
 }) => {
   const value = formatBN(amount, maximumFractionDigits, decimals)
   return (
     <Flex align="center" css={{ gap: '$1' }}>
-      {value !== '-' ? children : null}
       <Text style={textStyle} color={textColor} css={css} as="p">
         {value}
       </Text>
+      {value !== '-' ? children : null}
     </Flex>
   )
 }
