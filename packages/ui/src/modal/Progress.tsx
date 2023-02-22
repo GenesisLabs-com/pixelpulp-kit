@@ -3,6 +3,7 @@ import React, { FC } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCube, faWallet } from '@fortawesome/free-solid-svg-icons'
 import { useNetwork } from 'wagmi'
+import WalletIcon from '../img/WalletIcon'
 
 type Props = {
   title: string
@@ -24,15 +25,48 @@ const Progress: FC<Props> = ({ title, txHash, blockExplorerBaseUrl }) => {
       }}
     >
       <Text style="h6">{title}</Text>
-      <Box css={{ color: '$neutralText' }}>
-        <FontAwesomeIcon
-          icon={txHash ? faCube : faWallet}
-          style={{
-            width: '32px',
-            height: '32px',
-            marginTop: '12px 0px',
+      <Box
+        css={{
+          backgroundColor: '$priceBackground',
+          borderRadius: '0.75rem',
+          padding: '1.25rem',
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          m: '0 0 1rem',
+          textAlign: 'center',
+        }}
+      >
+        <Box
+          css={{
+            color: '$neutralText',
+            backgroundColor: '#7A3EDB',
+            borderRadius: '2rem',
+            width: '3rem',
+            height: '3rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            m: '0 0 1rem',
           }}
-        />
+        >
+          {txHash ? (
+            <FontAwesomeIcon
+              icon={faCube}
+              color="#fff"
+              style={{
+                width: '22px',
+                height: '22px',
+              }}
+            />
+          ) : (
+            <WalletIcon />
+          )}
+        </Box>
+        <Text style="body5" color="blackWhite">
+          Confirm Transaction in your wallet
+        </Text>
       </Box>
       <Anchor
         color="primary"

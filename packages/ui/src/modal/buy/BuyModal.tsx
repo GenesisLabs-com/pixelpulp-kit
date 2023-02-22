@@ -18,7 +18,7 @@ import { Modal } from '../Modal'
 import {
   faCopy,
   faCircleExclamation,
-  faCheckCircle,
+  // faCheckCircle,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import TokenLineItem from '../TokenLineItem'
@@ -212,7 +212,12 @@ export function BuyModal({
                     onClick={() => {
                       setOpen(false)
                     }}
-                    css={{ my: '$4', borderRadius: '0.75rem' }}
+                    css={{
+                      my: '$4',
+                      borderRadius: '0.75rem',
+                      fontSize: '1rem',
+                      fontWeight: 500,
+                    }}
                   >
                     Close
                   </Button>
@@ -318,7 +323,7 @@ export function BuyModal({
                         pt: '1rem',
                       }}
                     >
-                      <Text style="subtitle2" color="subtle">
+                      <Text style="body4" color="subtitle">
                         Total
                       </Text>
                       <Flex justify="end" direction="column">
@@ -328,7 +333,11 @@ export function BuyModal({
                           address={currency?.contract}
                           decimals={currency?.decimals}
                         />
-                        <FormatCurrency amount={totalUsd} color="subtle" />
+                        <FormatCurrency
+                          amount={totalUsd}
+                          style="subtitle2"
+                          color="blackWhite"
+                        />
                       </Flex>
                     </Box>
                   </Flex>
@@ -399,7 +408,12 @@ export function BuyModal({
                   )}
                   <Button
                     disabled={true}
-                    css={{ m: '$4', borderRadius: '0.75rem' }}
+                    css={{
+                      my: '$4',
+                      borderRadius: '0.75rem',
+                      fontSize: '1rem',
+                      fontWeight: 500,
+                    }}
                   >
                     <Loader />
                     {stepData?.currentStepItem.txHash
@@ -496,13 +510,23 @@ export function BuyModal({
                           onClick={() => {
                             setOpen(false)
                           }}
-                          css={{ flex: 1, borderRadius: '0.75rem' }}
+                          css={{
+                            flex: 1,
+                            borderRadius: '0.75rem',
+                            fontSize: '1rem',
+                            fontWeight: 500,
+                          }}
                           color="ghost"
                         >
                           Close
                         </Button>
                         <Button
-                          style={{ flex: 1, borderRadius: '0.75rem' }}
+                          style={{
+                            flex: 1,
+                            borderRadius: '0.75rem',
+                            fontSize: '1rem',
+                            fontWeight: 500,
+                          }}
                           color="primary"
                           onClick={() => {
                             onGoToToken()
@@ -516,7 +540,12 @@ export function BuyModal({
                         onClick={() => {
                           setOpen(false)
                         }}
-                        style={{ flex: 1, borderRadius: '0.75rem' }}
+                        style={{
+                          flex: 1,
+                          borderRadius: '0.75rem',
+                          fontSize: '1rem',
+                          fontWeight: 500,
+                        }}
                         color="primary"
                       >
                         Close
@@ -570,7 +599,7 @@ export function BuyModal({
                     /> */}
                         <ExchangeIcon />
                       </Box>
-                      <Text style="body1" css={{ my: 24 }}>
+                      <Text style="body1" css={{ m1: 24 }}>
                         <Popover
                           content={
                             <Text style={'body2'}>
@@ -605,17 +634,20 @@ export function BuyModal({
                         <br /> wallet address below:
                       </Text>
                     </Box>
+                    <Text
+                      style="body1"
+                      css={{
+                        display: 'block',
+                        m: '0 0 1rem',
+                        textAlign: 'left',
+                        fontWeight: 500,
+                        color: 'blackWhite',
+                        width: '100%',
+                      }}
+                    >
+                      Wallet Address
+                    </Text>
                     <Box css={{ width: '100%', position: 'relative' }}>
-                      <Text
-                        style="h6"
-                        css={{
-                          display: 'block',
-                          m: '0 0 1rem',
-                          textAlign: 'left',
-                        }}
-                      >
-                        Wallet Address
-                      </Text>
                       <Flex
                         css={{
                           pointerEvents: 'none',
@@ -646,7 +678,7 @@ export function BuyModal({
                         css={{
                           position: 'absolute',
                           right: '$3',
-                          top: '73%',
+                          top: '50%',
                           touchEvents: 'none',
                           transform: 'translateY(-50%)',
                           color: '$neutralText',
@@ -658,7 +690,12 @@ export function BuyModal({
                     </Box>
                   </Flex>
                   <Button
-                    css={{ my: '$4', borderRadius: '0.75rem' }}
+                    css={{
+                      my: '$4',
+                      borderRadius: '0.75rem',
+                      fontSize: '1rem',
+                      fontWeight: 500,
+                    }}
                     color="primary"
                     onClick={() => copyToClipboard(address as string)}
                   >

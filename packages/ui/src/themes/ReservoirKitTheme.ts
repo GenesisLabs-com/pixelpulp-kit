@@ -63,6 +63,8 @@ export interface ReservoirKitThemeColors {
   errorText: string
   errorAccent: string
   successAccent: string
+  subtitleColor: string
+  blackwhiteColor: string
 
   // component colors
   reservoirLogoColor: string

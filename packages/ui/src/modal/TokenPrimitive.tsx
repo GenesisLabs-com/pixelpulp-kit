@@ -47,16 +47,16 @@ const TokenPrimitive: FC<Props> = ({
     <Box>
       <Flex css={{ justifyContent: 'space-between', alignItems: 'center' }}>
         <Text
-          style="subtitle2"
-          color="subtle"
+          style="body4"
+          color="blackWhite"
           css={{ mb: 10, display: 'block' }}
         >
           {name ? 'Item' : 'Collection'}
         </Text>
         {isOffer && (
           <Text
-            style="subtitle2"
-            color="subtle"
+            style="body4"
+            color="blackWhite"
             css={{ mb: 10, display: 'block' }}
           >
             Offer
@@ -82,7 +82,7 @@ const TokenPrimitive: FC<Props> = ({
             <Text
               style="h6"
               ellipsify
-              color={isUnavailable ? 'subtle' : 'base'}
+              color={isUnavailable ? 'blackWhite' : 'base'}
             >
               {name ? name : collection}
             </Text>
@@ -106,7 +106,7 @@ const TokenPrimitive: FC<Props> = ({
       </Flex>
       <Flex
         css={{
-          alignItems: 'center',
+          alignItems: 'baseline',
           justifyContent: 'space-between',
           backgroundColor: '$priceBackground',
           borderTopLeftRadius: '0.75rem',
@@ -116,7 +116,7 @@ const TokenPrimitive: FC<Props> = ({
         }}
       >
         <Flex css={{ alignItems: 'center', gap: 8 }}>
-          <Text style="subtitle2" color="subtle">
+          <Text style="body4" color="subtitle">
             Price
           </Text>
         </Flex>
@@ -124,18 +124,18 @@ const TokenPrimitive: FC<Props> = ({
           {price ? (
             <FormatCryptoCurrency
               amount={price}
-              textColor={isUnavailable ? 'subtle' : 'base'}
+              textColor={isUnavailable ? 'blackWhite' : 'base'}
               address={currencyContract}
               decimals={currencyDecimals}
               logoWidth={14.5}
             />
           ) : (
-            <Text style="subtitle2" color={isUnavailable ? 'subtle' : 'base'}>
+            <Text style="subtitle2" color={isUnavailable ? 'blackWhite' : 'base'}>
               --
             </Text>
           )}
           {usdPrice ? (
-            <FormatCurrency amount={usdPrice} style="tiny" color="subtle" />
+            <FormatCurrency amount={usdPrice} style="subtitle2" color="blackWhite" />
           ) : null}
           {warning && (
             <Text style="subtitle2" color="error">

@@ -14,6 +14,12 @@ export default styled('span', {
       subtle: {
         color: '$neutralText',
       },
+      subtitle: {
+        color: '$subtitle',
+      },
+      blackWhite: {
+        color: '$blackwhiteColor',
+      },
       error: {
         color: '$errorAccent',
       },
@@ -75,6 +81,14 @@ export default styled('span', {
       body3: {
         fontWeight: 400,
         fontSize: 14,
+      },
+      body4: {
+        fontWeight: 500,
+        fontSize: 14,
+      },
+      body5: {
+        fontWeight: 600,
+        fontSize: 16,
       },
       tiny: {
         fontWeight: 500,

@@ -1,5 +1,5 @@
 import { useFallbackState } from '../../hooks'
-import { keyframes, styled } from '../../../stitches.config'
+import { keyframes } from '../../../stitches.config'
 import {
   Box,
   Flex,

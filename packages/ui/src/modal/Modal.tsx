@@ -109,7 +109,7 @@ export const Modal = forwardRef<ElementRef<typeof Dialog>, Props>(
               size="none"
               css={{
                 display: 'flex',
-                color: '$closeBorder',
+                color: '$closeBorder !important',
                 borderRadius: '2rem',
                 border: '2px solid $closeBorder',
                 backgroundColor: 'transparent !important',

@@ -76,6 +76,8 @@ export default function (overrides?: ReservoirKitOverrides): ReservoirKitTheme {
       errorText: '$red12',
       errorAccent: '$red10',
       successAccent: '$green10',
+      subtitleColor: '#909090',
+      blackwhiteColor: '#1E1B1B',
 
       // component colors
       reservoirLogoColor: '#11181C',
