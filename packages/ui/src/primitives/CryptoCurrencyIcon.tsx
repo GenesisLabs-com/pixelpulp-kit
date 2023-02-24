@@ -12,7 +12,9 @@ type Props = {
   address: string
 } & Parameters<StyledComponent>['0']
 
-const StyledImg = styled('img', {})
+const StyledImg = styled('img', {
+  w: '1rem'
+})
 
 const CryptoCurrencyIcon: FC<Props> = ({
   address = constants.AddressZero,

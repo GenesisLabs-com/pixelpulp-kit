@@ -97,12 +97,12 @@ const TokenStats: FC<Props> = ({ token, collection, trait }) => {
     <Flex
       css={{
         width: '100%',
-        flexDirection: 'row',
-        '@bp1': {
-          width: 220,
-          flexDirection: 'column',
-        },
-        p: '$4',
+        flexDirection: 'column',
+        // '@bp1': {
+        //   width: 220,
+        //   flexDirection: 'column',
+        // },
+        p: '1rem 1.625rem',
       }}
     >
       <TokenStatsHeader collection={collection} token={token} />
@@ -120,9 +120,23 @@ const TokenStats: FC<Props> = ({ token, collection, trait }) => {
         />
         <Box
           css={{
-            flex: 1,
+            display: 'flex',
+            justifyContent: 'space-between',
+            flexDirection: 'row',
+            alignItems: 'baseline',
+            mt: '$4',
             [`& ${Stat}:not(:last-child)`]: {
-              mb: '$1',
+              borderRight: '1px solid $closeBorder',
+            },
+            [`& ${Stat}:nth-child(2)`]: {
+              justifyContent: 'center',
+              minWidth: '6.5rem',
+            },
+            [`& ${Stat}:not(:first-child)`]: {
+              pl: '1.125rem',
+            },
+            [`& ${Stat}`]: {
+              w: '33%'
             },
           }}
         >

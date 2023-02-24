@@ -1,7 +1,7 @@
 import { Anchor, Box, Flex, Text } from '../primitives'
 import React, { FC } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCube, faWallet } from '@fortawesome/free-solid-svg-icons'
+import { faCube } from '@fortawesome/free-solid-svg-icons'
 import { useNetwork } from 'wagmi'
 import WalletIcon from '../img/WalletIcon'
 

@@ -7,10 +7,10 @@ import optimizeImage from '../../lib/optimizeImage'
 const Img = styled('img', {
   width: '100%',
   '@bp1': {
-    height: 100,
-    width: 100,
+    height: 60,
+    width: 60,
   },
-  borderRadius: '$borderRadius',
+  borderRadius: '0.75rem',
 })
 
 type Props = {
@@ -27,42 +27,58 @@ const TokenStatsHeader: FC<Props> = ({ token, collection }) => {
   return (
     <Box
       css={{
-        mr: '$4',
-        marginBottom: '$4',
-        width: 120,
-        '@bp1': {
-          mr: 0,
-          width: '100%',
-        },
+        alignItems: 'center',
+        display: 'flex',
+        justifyContent: 'flex-start',
+        width: '100%',
       }}
     >
-      <Text
+      {/* <Text
         style="subtitle2"
         color="subtle"
         css={{ mb: '$1', display: 'block' }}
       >
         {token ? 'Item' : 'Collection'}
-      </Text>
-      <Img
-        src={img}
+      </Text> */}
+      <Box
         css={{
-          mb: '$2',
-          visibility: !img || img.length === 0 ? 'hidden' : 'visible',
-          objectFit: 'cover',
+          display: 'flex',
+          mr: '$4',
+          width: 60,
         }}
-      />
-      <Text style="h6" css={{ flex: 1 }} as="h6" ellipsify>
-        {token?.token
-          ? token.token.name || `#${token.token.tokenId}`
-          : collection?.name}
-      </Text>
-      {token && (
-        <Box>
-          <Text style="subtitle2" color="subtle" as="p" ellipsify>
+      >
+        <Img
+          src={img}
+          css={{
+            visibility: !img || img.length === 0 ? 'hidden' : 'visible',
+            objectFit: 'cover',
+          }}
+        />
+      </Box>
+      <Box
+        css={{
+          display: 'flex',
+          flexDirection: 'column',
+          width: '100%',
+        }}
+      >
+        <Text
+          style="h5"
+          css={{
+            color: 'blackWhite',
+          }}
+          ellipsify
+        >
+          {token?.token
+            ? token.token.name || `#${token.token.tokenId}`
+            : collection?.name}
+        </Text>
+        {token && (
+          <Text style="subtitle2" as="p" ellipsify>
             {token?.token?.collection?.name}
           </Text>
-        </Box>
-      )}
+        )}
+      </Box>
     </Box>
   )
 }

@@ -65,6 +65,8 @@ export interface ReservoirKitThemeColors {
   successAccent: string
   subtitleColor: string
   blackwhiteColor: string
+  dotInactiveColor: string
+  dotActiveColor: string
 
   // component colors
   reservoirLogoColor: string
@@ -80,6 +82,8 @@ export interface ReservoirKitThemeColors {
   popoverBackground: string
   closeBorder: string
   pColor: string
+  boxBackground: string
+  switchBorder: string
 }
 
 export type ReservoirKitOverrides = {
@@ -100,8 +104,12 @@ export type ReservoirKitOverrides = {
   overlayBackground?: string
   popoverBackground?: string
   borderColor?: string
-  closeBorder: string
-  pColor: string
+  closeBorder?: string
+  pColor?: string
+  boxBackground?: string
+  dotInactiveColor?: string
+  dotActiveColor?: string
+  switchBorder?: string
   ethIcon?: ReservoirKitTheme['assets']['ethIcon']
 }
 

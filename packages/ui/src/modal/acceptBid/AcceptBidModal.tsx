@@ -27,6 +27,7 @@ import {
 import Fees from './Fees'
 import { useFallbackState, useReservoirClient, useTimeSince } from '../../hooks'
 import { useNetwork } from 'wagmi'
+import BidAcceptedIcon from '../../img/BidAcceptedIcon'
 
 type BidData = {
   tokenId?: string
@@ -56,7 +57,7 @@ function titleForStep(step: AcceptBidStep) {
     case AcceptBidStep.Unavailable:
       return 'Selected item is no longer available'
     default:
-      return 'Accept Offer'
+      return 'Accept Bid'
   }
 }
 
@@ -182,7 +183,12 @@ export function AcceptBidModal({
             loading={loading}
           >
             {acceptBidStep === AcceptBidStep.Unavailable && !loading && (
-              <Flex direction="column">
+              <Flex
+                direction="column"
+                css={{
+                  p: '1rem 1.625rem 1.625rem',
+                }}
+              >
                 <TokenLineItem
                   tokenDetails={token}
                   collection={collection}
@@ -195,14 +201,28 @@ export function AcceptBidModal({
                   isOffer={true}
                   sourceImg={source?.icon ? (source.icon as string) : undefined}
                 />
-                <Button onClick={() => setOpen(false)} css={{ m: '$4' }}>
+                <Button
+                  onClick={() => setOpen(false)}
+                  css={{
+                    borderRadius: '0.75rem',
+                    fontSize: '1rem',
+                    fontWeight: 500,
+                    mt: '2.5rem',
+                    width: '100%',
+                  }}
+                >
                   Close
                 </Button>
               </Flex>
             )}
 
             {acceptBidStep === AcceptBidStep.Checkout && !loading && (
-              <Flex direction="column">
+              <Flex
+                direction="column"
+                css={{
+                  p: '1rem 1.625rem 1.625rem',
+                }}
+              >
                 {transactionError && (
                   <Flex
                     css={{
@@ -239,31 +259,39 @@ export function AcceptBidModal({
                 <Flex
                   align="center"
                   justify="between"
-                  css={{ px: '$4', mt: '$4' }}
+                  css={{
+                    alignItems: 'baseline',
+                    justifyContent: 'space-between',
+                    backgroundColor: '$priceBackground',
+                    borderRadius: '0.75rem',
+                    padding: '1rem',
+                    my: '1rem',
+                  }}
                 >
-                  <Text style="h6">You Get</Text>
-                  <FormatCryptoCurrency
-                    textStyle="h6"
-                    amount={totalPrice}
-                    address={bidAmountCurrency?.contract}
-                    logoWidth={16}
-                  />
-                </Flex>
-                <Flex justify="end">
-                  <FormatCurrency
-                    amount={totalUsd}
-                    color="subtle"
-                    css={{ mr: '$4' }}
-                  />
+                  <Text style="body4" color="blackWhite">
+                    You Receive/Get
+                  </Text>
+                  <Flex justify="end" direction="column">
+                    <FormatCryptoCurrency
+                      textStyle="h6"
+                      amount={totalPrice}
+                      address={bidAmountCurrency?.contract}
+                      logoWidth={16}
+                    />
+                    <FormatCurrency
+                      amount={totalUsd}
+                      style="body2"
+                      color="blackWhite"
+                    />
+                  </Flex>
                 </Flex>
 
                 <Button
-                  style={{
-                    flex: 1,
-                    marginBottom: 16,
-                    marginTop: 16,
-                    marginRight: 16,
-                    marginLeft: 16,
+                  css={{
+                    borderRadius: '0.75rem',
+                    fontSize: '1rem',
+                    fontWeight: 500,
+                    width: '100%',
                   }}
                   color="primary"
                   onClick={acceptBid}
@@ -277,7 +305,7 @@ export function AcceptBidModal({
               acceptBidStep === AcceptBidStep.Finalizing ||
               acceptBidStep === AcceptBidStep.ApproveMarketplace) &&
               token && (
-                <Flex direction="column">
+                <Flex direction="column" css={{ p: '1rem 1.625rem 1.625rem' }}>
                   <TokenLineItem
                     tokenDetails={token}
                     collection={collection}
@@ -298,7 +326,15 @@ export function AcceptBidModal({
                     tokenImage={tokenImage}
                     stepData={stepData}
                   />
-                  <Button disabled={true} css={{ m: '$4' }}>
+                  <Button
+                    disabled={true}
+                    css={{
+                      borderRadius: '0.75rem',
+                      fontSize: '1rem',
+                      fontWeight: 500,
+                      width: '100%',
+                    }}
+                  >
                     <Loader />
                     {acceptBidStep === AcceptBidStep.Confirming
                       ? 'Waiting for approval...'
@@ -321,14 +357,17 @@ export function AcceptBidModal({
                   {' '}
                   <Box
                     css={{
-                      color: '$successAccent',
-                      mb: 24,
+                      w: 48,
+                      h: 48,
+                      m: '1.25rem auto',
+                      display: 'flex',
                     }}
                   >
-                    <FontAwesomeIcon icon={faCheckCircle} fontSize={32} />
+                    {/* <FontAwesomeIcon icon={faCheckCircle} fontSize={32} /> */}
+                    <BidAcceptedIcon />
                   </Box>
-                  <Text style="h5" css={{ mb: 8 }}>
-                    Bid accepted!
+                  <Text style="h4" css={{ mb: 8 }}>
+                    Bid Accepted!
                   </Text>
                   <Flex
                     css={{ mb: 24, maxWidth: '100%' }}
@@ -336,8 +375,8 @@ export function AcceptBidModal({
                     justify="center"
                   >
                     <Text
-                      style="subtitle2"
-                      css={{ maxWidth: '100%' }}
+                      style="body4"
+                      css={{ maxWidth: '100%', color: '$pColor' }}
                       ellipsify
                     >
                       You’ve sold{' '}
@@ -355,35 +394,36 @@ export function AcceptBidModal({
                       from the {token?.token?.collection?.name} collection.
                     </Text>
                   </Flex>
-                  <Anchor
-                    color="primary"
-                    weight="medium"
-                    css={{ fontSize: 12 }}
-                    href={`${etherscanBaseUrl}/tx/${txHash}`}
-                    target="_blank"
-                  >
-                    View on{' '}
-                    {activeChain?.blockExplorers?.default.name || 'Etherscan'}
-                  </Anchor>
-                </Flex>
-                <Flex
-                  css={{
-                    p: '$4',
-                    flexDirection: 'column',
-                    gap: '$3',
-                    '@bp1': {
-                      flexDirection: 'row',
-                    },
-                  }}
-                >
-                  <Button
-                    css={{ width: '100%' }}
-                    onClick={() => {
-                      setOpen(false)
+                  <Flex
+                    css={{
+                      flexDirection: 'column',
+                      mt: '2.5rem 0 0',
+                      w: '100%',
                     }}
                   >
-                    Done
-                  </Button>
+                    <Button
+                      css={{
+                        borderRadius: '0.75rem',
+                        fontSize: '1rem',
+                        fontWeight: 500,
+                        width: '100%',
+                      }}
+                      onClick={() => {
+                        setOpen(false)
+                      }}
+                    >
+                      Done
+                    </Button>
+                    <Anchor
+                      color="primary"
+                      css={{ fontSize: 16, fontWeight: 600, mt: '1rem' }}
+                      href={`${etherscanBaseUrl}/tx/${txHash}`}
+                      target="_blank"
+                    >
+                      View on{' '}
+                      {activeChain?.blockExplorers?.default.name || 'Etherscan'}
+                    </Anchor>
+                  </Flex>
                 </Flex>
               </Flex>
             )}

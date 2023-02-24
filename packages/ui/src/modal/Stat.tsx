@@ -21,13 +21,17 @@ const Stat: FC<StatProps> = ({
   ...props
 }) => (
   <Flex
-    align="center"
+    align="start"
     justify="between"
     className="rk-stat-well"
+    direction="column"
     css={{
-      backgroundColor: '$wellBackground',
-      p: '$2',
-      borderRadius: '$borderRadius',
+      backgroundColor: 'transparent',
+      p: 0,
+      // borderRight: '1px solid $closeBorder',
+      // [`& :last-child)`]: {
+      //   borderRight: 'none',
+      // },
       overflow: 'hidden',
     }}
     {...props}
@@ -44,17 +48,17 @@ const Stat: FC<StatProps> = ({
       {label}
     </Flex>
     {asNative && !asWrapped && (
-      <FormatCryptoCurrency amount={value} textStyle="subtitle2" />
+      <FormatCryptoCurrency amount={value} textStyle="subtitle1" />
     )}
     {asWrapped && !asNative && (
-      <FormatWrappedCurrency amount={value} textStyle="subtitle2" />
+      <FormatWrappedCurrency amount={value} textStyle="subtitle1" />
     )}
     {!asNative && !asWrapped && (
       <Text
-        style="subtitle2"
+        style="subtitle1"
         as="p"
         css={{
-          marginLeft: '$2',
+          marginLeft: '0',
         }}
         ellipsify
       >

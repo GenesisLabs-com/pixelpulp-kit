@@ -35,6 +35,12 @@ export default styled('span', {
       button: {
         color: '$buttonTextColor',
       },
+      dotInactive: {
+        color: '$dotInactiveColor',
+      },
+      dotActive: {
+        color: '$dotActiveColor',
+      },
     },
     style: {
       h2: {
@@ -48,12 +54,12 @@ export default styled('span', {
         fontFamily: '$headline',
       },
       h4: {
-        fontWeight: 700,
+        fontWeight: 600,
         fontSize: 24,
         fontFamily: '$headline',
       },
       h5: {
-        fontWeight: 700,
+        fontWeight: 600,
         fontSize: 20,
         fontFamily: '$headline',
       },
@@ -69,6 +75,10 @@ export default styled('span', {
       subtitle2: {
         fontWeight: 500,
         fontSize: 12,
+      },
+      subtitle3: {
+        fontWeight: 500,
+        fontSize: 18,
       },
       body1: {
         fontWeight: 400,

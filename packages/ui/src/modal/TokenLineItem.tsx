@@ -50,7 +50,7 @@ const TokenLineItem: FC<TokenLineItemProps> = ({
     : (collection?.image as string)
 
   return (
-    <Box css={{ pt: '$4' }}>
+    <>
       <TokenPrimitive
         img={img}
         name={name}
@@ -71,7 +71,7 @@ const TokenLineItem: FC<TokenLineItemProps> = ({
           message="Token is not tradable on OpenSea"
         />
       )}
-    </Box>
+    </>
   )
 }
 

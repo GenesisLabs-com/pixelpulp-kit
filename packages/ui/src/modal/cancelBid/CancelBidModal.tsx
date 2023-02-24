@@ -8,6 +8,7 @@ import Progress from '../Progress'
 import { useNetwork } from 'wagmi'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
+import OfferCancelledIcon from '../../img/OfferCancelledIcon'
 
 type Props = Pick<Parameters<typeof Modal>['0'], 'trigger'> & {
   openState?: [boolean, Dispatch<SetStateAction<boolean>>]
@@ -86,7 +87,7 @@ export function CancelBidModal({
         return (
           <Modal
             trigger={trigger}
-            title="Cancel Offer"
+            title="Cancel your Offer"
             open={open}
             onOpenChange={(open) => {
               if (!open && onClose) {
@@ -106,20 +107,29 @@ export function CancelBidModal({
                 justify="center"
                 css={{ px: '$4', py: '$6' }}
               >
-                <Text style="h6" css={{ textAlign: 'center' }}>
+                <Text
+                  style="h5"
+                  color="blackWhite"
+                  css={{ textAlign: 'center' }}
+                >
                   Selected bid is no longer available
                 </Text>
               </Flex>
             )}
             {isBidAvailable && cancelStep === CancelStep.Cancel && (
-              <Flex direction="column">
+              <Flex
+                direction="column"
+                justify="center"
+                css={{ p: '1rem 1.625rem 1.625rem' }}
+              >
                 {transactionError && (
                   <Flex
                     css={{
                       color: '$errorAccent',
-                      p: '$4',
+                      borderRadius: '0.75rem',
+                      p: '1rem',
                       gap: '$2',
-                      background: '$wellBackground',
+                      background: '$priceBackground',
                     }}
                     align="center"
                   >
@@ -133,7 +143,7 @@ export function CancelBidModal({
                     </Text>
                   </Flex>
                 )}
-                <Box css={{ p: '$4', borderBottom: '1px solid $borderColor' }}>
+                <Box>
                   <TokenPrimitive
                     img={bidImg}
                     name={bid?.criteria?.data?.token?.name}
@@ -150,32 +160,38 @@ export function CancelBidModal({
                 <Text
                   style="body3"
                   color="subtle"
-                  css={{ mt: '$3', mr: '$3', ml: '$3', textAlign: 'center' }}
+                  css={{ my: '2.5rem', textAlign: 'center' }}
                 >
                   This will cancel your offer. You will be asked to confirm this
                   cancelation from your wallet.
                 </Text>
-                <Button onClick={cancelOrder} css={{ m: '$4' }}>
+                <Button
+                  onClick={cancelOrder}
+                  css={{
+                    borderRadius: '0.75rem',
+                    fontSize: '1rem',
+                    fontWeight: 500,
+                    width: '100%',
+                  }}
+                >
                   Continue to Cancel
                 </Button>
               </Flex>
             )}
             {cancelStep === CancelStep.Approving && (
-              <Flex direction="column">
-                <Box css={{ p: '$4', borderBottom: '1px solid $borderColor' }}>
-                  <TokenPrimitive
-                    img={bidImg}
-                    name={bid?.criteria?.data?.token?.name}
-                    price={bid?.price?.amount?.decimal}
-                    usdPrice={totalUsd}
-                    collection={bid?.criteria?.data?.collection?.name || ''}
-                    currencyContract={bid?.price?.currency?.contract}
-                    currencyDecimals={bid?.price?.currency?.decimals}
-                    expires={expires}
-                    source={(bid?.source?.icon as string) || ''}
-                    isOffer={true}
-                  />
-                </Box>
+              <Flex direction="column" css={{ p: '1rem 1.625rem 1.625rem' }}>
+                <TokenPrimitive
+                  img={bidImg}
+                  name={bid?.criteria?.data?.token?.name}
+                  price={bid?.price?.amount?.decimal}
+                  usdPrice={totalUsd}
+                  collection={bid?.criteria?.data?.collection?.name || ''}
+                  currencyContract={bid?.price?.currency?.contract}
+                  currencyDecimals={bid?.price?.currency?.decimals}
+                  expires={expires}
+                  source={(bid?.source?.icon as string) || ''}
+                  isOffer={true}
+                />
                 {!stepData && <Loader css={{ height: 206 }} />}
                 {stepData && (
                   <>
@@ -202,7 +218,15 @@ export function CancelBidModal({
                     )}
                   </>
                 )}
-                <Button disabled={true} css={{ m: '$4' }}>
+                <Button
+                  disabled={true}
+                  css={{
+                    borderRadius: '0.75rem',
+                    fontSize: '1rem',
+                    fontWeight: 500,
+                    width: '100%',
+                  }}
+                >
                   <Loader />
                   {stepData?.currentStepItem.txHash
                     ? 'Waiting for transaction to be validated'
@@ -211,7 +235,7 @@ export function CancelBidModal({
               </Flex>
             )}
             {cancelStep === CancelStep.Complete && (
-              <Flex direction="column">
+              <Flex direction="column" css={{ p: '1rem 1.625rem 1.625rem' }}>
                 <Flex
                   css={{
                     p: '$4',
@@ -221,10 +245,24 @@ export function CancelBidModal({
                     textAlign: 'center',
                   }}
                 >
+                  <Box
+                    css={{
+                      w: 48,
+                      h: 48,
+                      m: '1.25rem auto',
+                      display: 'flex',
+                    }}
+                  >
+                    <OfferCancelledIcon />
+                  </Box>
                   <Text style="h5" css={{ mb: '$2' }}>
-                    Offer Canceled!
+                    Offer Cancelled!
                   </Text>
-                  <Text style="body3" color="subtle" css={{ mb: 24 }}>
+                  <Text
+                    style="body4"
+                    css={{ maxWidth: '100%', color: '$pColor' }}
+                    ellipsify
+                  >
                     <>
                       Your{' '}
                       <Text style="body3" color="accent">
@@ -236,14 +274,34 @@ export function CancelBidModal({
                           bid?.criteria?.data?.collection?.name}{' '}
                       </Text>
                       at {bid?.price?.amount?.decimal}{' '}
-                      {bid?.price?.currency?.symbol} has been canceled.
+                      {bid?.price?.currency?.symbol} has been cancelled.
                     </>
                   </Text>
-
+                </Flex>
+                <Flex
+                  css={{
+                    alignItems: 'center',
+                    flexDirection: 'column',
+                    mt: '2.5rem 0 0',
+                    w: '100%',
+                  }}
+                >
+                  <Button
+                    onClick={() => {
+                      setOpen(false)
+                    }}
+                    css={{
+                      borderRadius: '0.75rem',
+                      fontSize: '1rem',
+                      fontWeight: 500,
+                      width: '100%',
+                    }}
+                  >
+                    Close
+                  </Button>
                   <Anchor
                     color="primary"
-                    weight="medium"
-                    css={{ fontSize: 12 }}
+                    css={{ fontSize: 16, fontWeight: 600, mt: '1rem' }}
                     href={`${blockExplorerBaseUrl}/tx/${stepData?.currentStepItem.txHash}`}
                     target="_blank"
                   >
@@ -251,14 +309,6 @@ export function CancelBidModal({
                     {activeChain?.blockExplorers?.default.name || 'Etherscan'}
                   </Anchor>
                 </Flex>
-                <Button
-                  onClick={() => {
-                    setOpen(false)
-                  }}
-                  css={{ m: '$4' }}
-                >
-                  Close
-                </Button>
               </Flex>
             )}
           </Modal>

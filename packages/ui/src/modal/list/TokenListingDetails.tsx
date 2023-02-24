@@ -23,12 +23,12 @@ const TokenListingDetails: FC<Props> = ({
   <Flex
     css={{
       width: '100%',
-      flexDirection: 'row',
-      '@bp1': {
-        width: 220,
-        flexDirection: 'column',
-      },
-      p: '$4',
+      flexDirection: 'column',
+      // '@bp1': {
+      //   width: 220,
+      //   flexDirection: 'column',
+      // },
+      p: '1rem 1.625rem',
     }}
   >
     <Token collection={collection} token={token} />

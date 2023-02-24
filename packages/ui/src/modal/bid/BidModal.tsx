@@ -49,6 +49,7 @@ import AttributeSelector from './AttributeSelector'
 import Popover from '../../primitives/Popover'
 import PseudoInput from '../../primitives/PseudoInput'
 import { useFallbackState } from '../../hooks'
+import SuccessIcon from '../../img/SuccessIcon'
 
 type BidCallbackData = {
   tokenId?: string
@@ -86,9 +87,9 @@ function titleForStep(step: BidStep) {
 const ContentContainer = styled(Flex, {
   width: '100%',
   flexDirection: 'column',
-  '@bp1': {
-    flexDirection: 'row',
-  },
+  // '@bp1': {
+  //   flexDirection: 'row',
+  // },
 })
 
 const MainContainer = styled(Flex, {
@@ -300,7 +301,7 @@ export function BidModal({
                   collection={collection}
                   trait={trait}
                 />
-                <MainContainer css={{ p: '$4' }}>
+                <MainContainer css={{ p: '1rem 1.625rem 1.625rem' }}>
                   {isBanned && (
                     <ErrorWell
                       message="Token is not tradable on OpenSea"
@@ -308,17 +309,20 @@ export function BidModal({
                     />
                   )}
                   <Flex justify="between">
-                    <Text style="tiny">Offer Amount</Text>
+                    <Text style="body1" color="blackWhite">
+                      Offer Amount
+                    </Text>
                     <Text
                       as={Flex}
                       css={{ gap: '$1' }}
                       align="center"
-                      style="tiny"
+                      color="blackWhite"
+                      style="body2"
                     >
                       Balance:{' '}
                       <FormatWrappedCurrency
                         logoWidth={10}
-                        textStyle="tiny"
+                        textStyle="body2"
                         amount={wrappedBalance?.value}
                       />{' '}
                     </Text>
@@ -326,13 +330,31 @@ export function BidModal({
                   <Flex css={{ mt: '$2', gap: 20 }}>
                     <Text
                       as={Flex}
-                      css={{ gap: '$2', ml: '$3', flexShrink: 0 }}
+                      css={{
+                        gap: '$2',
+                        flexShrink: 0,
+                        backgroundColor: '$priceBackground',
+                        borderRadius: '0.75rem',
+                        px: '0.5rem',
+                        w: 107,
+                      }}
                       align="center"
-                      style="body1"
-                      color="subtle"
+                      style="subtitle3"
+                      color="blackWhite"
+                      justify="center"
                     >
                       <CryptoCurrencyIcon
-                        css={{ height: 20 }}
+                        css={{
+                          color: '$neutralText',
+                          backgroundColor: '#7A3EDB',
+                          borderRadius: '2rem',
+                          width: '2rem',
+                          height: '2rem',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          p: '0.25rem',
+                        }}
                         address={wrappedContractAddress}
                       />
                       {wrappedContractName}
@@ -360,7 +382,8 @@ export function BidModal({
                       display: 'inline-block',
                       minHeight: 15,
                     }}
-                    style="tiny"
+                    style="body2"
+                    color="blackWhite"
                     amount={bidAmountUsd}
                   />
                   {attributes &&
@@ -368,7 +391,7 @@ export function BidModal({
                     (attributesSelectable || trait) &&
                     !tokenId && (
                       <>
-                        <Text as={Box} css={{ mb: '$2' }} style="tiny">
+                        <Text style="body1" color="blackWhite">
                           Attributes
                         </Text>
                         <Popover.Root
@@ -466,13 +489,18 @@ export function BidModal({
                       </>
                     )}
 
-                  <Text as={Box} css={{ mt: '$4', mb: '$2' }} style="tiny">
+                  <Text
+                    style="body1"
+                    color="blackWhite"
+                    css={{ mt: '$4', mb: '$2' }}
+                  >
                     Expiration Date
                   </Text>
-                  <Flex css={{ gap: '$2', mb: '$4' }}>
+                  <Flex css={{ gap: 20, mb: '$4' }}>
                     <Select
                       css={{
                         flex: 1,
+                        borderRadius: '0.75rem',
                         '@bp1': {
                           width: 160,
                           flexDirection: 'row',
@@ -531,6 +559,7 @@ export function BidModal({
                         },
                       }}
                       css={{
+                        borderRadius: '0.75rem',
                         padding: 0,
                         '@bp1': {
                           padding: '12px 16px 12px 48px',
@@ -539,7 +568,15 @@ export function BidModal({
                     />
                   </Flex>
                   {bidAmount === '' && (
-                    <Button disabled={true} css={{ width: '100%', mt: 'auto' }}>
+                    <Button
+                      disabled={true}
+                      css={{
+                        borderRadius: '0.75rem',
+                        fontSize: '1rem',
+                        fontWeight: 500,
+                        width: '100%',
+                      }}
+                    >
                       Enter a Price
                     </Button>
                   )}
@@ -547,7 +584,13 @@ export function BidModal({
                   {bidAmount !== '' && hasEnoughWrappedCurrency && (
                     <Button
                       onClick={placeBid}
-                      css={{ width: '100%', mt: 'auto' }}
+                      css={{
+                        borderRadius: '0.75rem',
+                        fontSize: '1rem',
+                        fontWeight: 500,
+                        width: '100%',
+                        mt: 'auto',
+                      }}
                     >
                       {token && token.token
                         ? 'Make an Offer'
@@ -560,7 +603,10 @@ export function BidModal({
                   {bidAmount !== '' && !hasEnoughWrappedCurrency && (
                     <Box css={{ width: '100%', mt: 'auto' }}>
                       {!hasEnoughNativeCurrency && (
-                        <Flex css={{ gap: '$2', mt: 10 }} justify="center">
+                        <Flex
+                          css={{ gap: '$2', mt: 10, alignItems: 'center' }}
+                          justify="center"
+                        >
                           <Text style="body2" color="error">
                             {balance?.symbol || 'ETH'} Balance
                           </Text>
@@ -579,7 +625,13 @@ export function BidModal({
                         }}
                       >
                         <Button
-                          css={{ flex: '1 0 auto' }}
+                          css={{
+                            flex: '1 0 auto',
+                            borderRadius: '0.75rem',
+                            fontSize: '1rem',
+                            fontWeight: 500,
+                            width: '100%',
+                          }}
                           color="secondary"
                           onClick={() => {
                             window.open(uniswapConvertLink, '_blank')
@@ -588,7 +640,14 @@ export function BidModal({
                           Convert Manually
                         </Button>
                         <Button
-                          css={{ flex: 1, maxHeight: 44 }}
+                          css={{
+                            flex: 1,
+                            maxHeight: 44,
+                            borderRadius: '0.75rem',
+                            fontSize: '1rem',
+                            fontWeight: 500,
+                            width: '100%',
+                          }}
                           disabled={!hasEnoughNativeCurrency}
                           onClick={placeBid}
                         >
@@ -611,7 +670,7 @@ export function BidModal({
                   collection={collection}
                   bidData={bidData}
                 />
-                <MainContainer css={{ p: '$4' }}>
+                <MainContainer css={{ p: '1rem 1.625rem 1.625rem' }}>
                   <ProgressBar
                     value={stepData?.stepProgress || 0}
                     max={stepData?.totalSteps || 0}
@@ -670,21 +729,50 @@ export function BidModal({
                     </Flex>
                   )}
                   {!transactionError && (
-                    <Button css={{ width: '100%', mt: 'auto' }} disabled={true}>
+                    <Button
+                      css={{
+                        borderRadius: '0.75rem',
+                        fontSize: '1rem',
+                        fontWeight: 500,
+                        width: '100%',
+                        mt: 'auto',
+                      }}
+                      disabled={true}
+                    >
                       <Loader />
                       Waiting for Approval
                     </Button>
                   )}
                   {transactionError && (
-                    <Flex css={{ mt: 'auto', gap: 10 }}>
+                    <Flex
+                      css={{
+                        mt: 'auto',
+                        gap: 10,
+                      }}
+                    >
                       <Button
                         color="secondary"
-                        css={{ flex: 1 }}
+                        css={{
+                          flex: 1,
+                          borderRadius: '0.75rem',
+                          fontSize: '1rem',
+                          fontWeight: 500,
+                          width: '100%',
+                        }}
                         onClick={() => setBidStep(BidStep.SetPrice)}
                       >
                         Edit Bid
                       </Button>
-                      <Button css={{ flex: 1 }} onClick={placeBid}>
+                      <Button
+                        css={{
+                          flex: 1,
+                          borderRadius: '0.75rem',
+                          fontSize: '1rem',
+                          fontWeight: 500,
+                          width: '100%',
+                        }}
+                        onClick={placeBid}
+                      >
                         Retry
                       </Button>
                     </Flex>
@@ -694,19 +782,51 @@ export function BidModal({
             )}
 
             {bidStep === BidStep.Complete && (
-              <Flex direction="column" align="center" css={{ p: '$4' }}>
-                <Box css={{ color: '$successAccent', mt: 48 }}>
-                  <FontAwesomeIcon
-                    icon={faCheckCircle}
-                    style={{ width: '32px', height: '32px' }}
-                  />
+              <Flex
+                direction="column"
+                align="center"
+                css={{ p: '1rem 1.625rem 1.625rem' }}
+              >
+                <Box
+                  css={{
+                    color: '$successAccent',
+                    mb: 30,
+                    width: 106,
+                    height: 106,
+                  }}
+                >
+                  {/* <FontAwesomeIcon icon={faCheckCircle} size="3x" /> */}
+                  <SuccessIcon />
                 </Box>
-                <Text style="h5" css={{ textAlign: 'center', mt: 36, mb: 80 }}>
-                  Offer Submitted!
+                <Text
+                  style="h4"
+                  color="blackWhite"
+                  css={{ mb: '$2', textAlign: 'center' }}
+                  as="h5"
+                >
+                  Success <br />
+                  Offer Made
+                </Text>
+                <Text
+                  style="body3"
+                  as="p"
+                  css={{
+                    mb: 24,
+                    maxWidth: 300,
+                    overflow: 'hidden',
+                    color: '$pColor',
+                  }}
+                >
+                  Your offer has been made successfully
                 </Text>
                 {onViewOffers ? (
                   <Button
-                    css={{ width: '100%' }}
+                    css={{
+                      borderRadius: '0.75rem',
+                      fontSize: '1rem',
+                      fontWeight: 500,
+                      width: '100%',
+                    }}
                     onClick={() => {
                       onViewOffers()
                     }}
@@ -715,7 +835,12 @@ export function BidModal({
                   </Button>
                 ) : (
                   <Button
-                    css={{ width: '100%' }}
+                    css={{
+                      borderRadius: '0.75rem',
+                      fontSize: '1rem',
+                      fontWeight: 500,
+                      width: '100%',
+                    }}
                     onClick={() => {
                       setOpen(false)
                     }}

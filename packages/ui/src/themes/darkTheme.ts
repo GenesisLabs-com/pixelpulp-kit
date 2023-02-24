@@ -89,8 +89,12 @@ export default function (overrides?: ReservoirKitOverrides): ReservoirKitTheme {
       contentBackground: overrides?.contentBackground || '#19191B',
       priceBackground: overrides?.priceBackground || '#282A31',
       closeBorder: overrides?.closeBorder || '#A1A1A1',
-      pColor: overrides?.pColor || '#979696', 
+      pColor: overrides?.pColor || '#979696',
       wellBackground: overrides?.wellBackground || '$neutralBase',
+      boxBackground: overrides?.boxBackground || '#19191B',
+      switchBorder: overrides?.switchBorder || '#A1A1A1',
+      dotInactiveColor: overrides?.dotInactiveColor || '#D9D9D9',
+      dotActiveColor: overrides?.dotActiveColor || '#7A3EDB',
       popoverBackground: overrides?.popoverBackground || '$neutralBgActive',
     },
     assets: {

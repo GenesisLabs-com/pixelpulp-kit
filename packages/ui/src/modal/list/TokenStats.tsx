@@ -3,7 +3,8 @@ import { Flex, Box, Text } from '../../primitives'
 import Token from './Token'
 import Stat from '../Stat'
 import { useTokens, useCollections } from '../../hooks'
-import InfoTooltip from '../../primitives/InfoTooltip'
+// import InfoTooltip from '../../primitives/InfoTooltip'
+// import TokenName from './TokenName'
 
 type Props = {
   token?: NonNullable<NonNullable<ReturnType<typeof useTokens>>['data']>['0']
@@ -23,109 +24,139 @@ const TokenStats: FC<Props> = ({ token, collection }) => {
     <Flex
       css={{
         width: '100%',
-        flexDirection: 'row',
-        '@bp1': {
-          width: 220,
-          flexDirection: 'column',
-        },
-        p: '$4',
+        flexDirection: 'column',
+        // '@bp1': {
+        //   width: 220,
+        //   flexDirection: 'column',
+        // },
+        p: '1rem 1.625rem',
       }}
     >
       <Token collection={collection} token={token} />
       <Box
         css={{
-          flex: 1,
-          mt: '$4',
-          [`& ${Stat}:not(:last-child)`]: {
-            mb: '$1',
-          },
-          mb: '$3',
+          display: 'flex',
+          flexDirection: 'column',
+          w: '100%',
         }}
       >
-        {[
-          {
-            id: 0,
-            label: (
-              <>
+        {/* <TokenName collection={collection} token={token} /> */}
+        <Box
+          css={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            flexDirection: 'row',
+            alignItems: 'baseline',
+            mt: '$4',
+            [`& ${Stat}:not(:last-child)`]: {
+              borderRight: '1px solid $closeBorder',
+            },
+            [`& ${Stat}:nth-child(2)`]: {
+              justifyContent: 'center',
+              minWidth: '6.5rem',
+            },
+            [`& ${Stat}:not(:first-child)`]: {
+              pl: '1.125rem',
+            },
+          }}
+        >
+          {[
+            {
+              id: 0,
+              label: (
+                <>
+                  <Text
+                    css={{
+                      minWidth: '0',
+                      fontSize: '0.875rem',
+                      fontWeight: 500,
+                      color: '$pColor',
+                    }}
+                    ellipsify
+                  >
+                    Creator Royalties
+                  </Text>
+                  {/* <InfoTooltip
+                    side="right"
+                    width={200}
+                    content={
+                      'A fee on every order that goes to the collection creator.'
+                    }
+                  /> */}
+                </>
+              ),
+              value: (collection?.royalties?.bps || 0) * 0.01 + '%',
+            },
+            {
+              id: 1,
+              label: (
                 <Text
-                  style="subtitle2"
-                  color="subtle"
-                  css={{ minWidth: '0' }}
+                  css={{
+                    minWidth: '0',
+                    fontSize: '0.875rem',
+                    fontWeight: 500,
+                    color: '$pColor',
+                  }}
                   ellipsify
                 >
-                  Creator Royalties
+                  Last Sale
                 </Text>
-                <InfoTooltip
-                  side="right"
-                  width={200}
-                  content={
-                    'A fee on every order that goes to the collection creator.'
-                  }
-                />
-              </>
-            ),
-            value: (collection?.royalties?.bps || 0) * 0.01 + '%',
-          },
-          {
-            id: 1,
-            label: (
-              <Text
-                style="subtitle2"
-                color="subtle"
-                css={{ minWidth: '0' }}
-                ellipsify
-              >
-                Last Sale
-              </Text>
-            ),
-            value: token?.token?.lastSell?.value || null,
-            asNative: true,
-          },
-          {
-            id: 2,
-            label: (
-              <Text
-                style="subtitle2"
-                color="subtle"
-                css={{ minWidth: '0' }}
-                ellipsify
-              >
-                Collection Floor
-              </Text>
-            ),
-            value: collection?.floorAsk?.price?.amount?.native || 0,
-            asNative: true,
-          },
-          {
-            id: 3,
-            label: (
-              <>
+              ),
+              value: token?.token?.lastSell?.value || null,
+              asNative: true,
+            },
+            {
+              id: 2,
+              label: (
                 <Text
-                  style="subtitle2"
-                  color="subtle"
-                  css={{ minWidth: '0' }}
+                  css={{
+                    minWidth: '0',
+                    fontSize: '0.875rem',
+                    fontWeight: 500,
+                    color: '$pColor',
+                  }}
                   ellipsify
                 >
-                  Highest Trait Floor
+                  Collection Floor
                 </Text>
-                <InfoTooltip
-                  side="right"
-                  width={200}
-                  content={
-                    'The floor price of the most valuable trait of a token.'
-                  }
-                />
-              </>
-            ),
-            value:
-              attributeFloor ||
-              collection?.floorAsk?.price?.amount?.native ||
-              0,
-            asNative: true,
-          },
-        ].map((stat) => (
-          <Stat key={stat.id} {...stat} />
-        ))}
+              ),
+              value: collection?.floorAsk?.price?.amount?.native || 0,
+              asNative: true,
+            },
+            {
+              id: 3,
+              label: (
+                <>
+                  <Text
+                    css={{
+                      minWidth: '0',
+                      fontSize: '0.875rem',
+                      fontWeight: 500,
+                      color: '$pColor',
+                    }}
+                    ellipsify
+                  >
+                    Highest Trait Floor
+                  </Text>
+                  {/* <InfoTooltip
+                    side="right"
+                    width={200}
+                    content={
+                      'The floor price of the most valuable trait of a token.'
+                    }
+                  /> */}
+                </>
+              ),
+              value:
+                attributeFloor ||
+                collection?.floorAsk?.price?.amount?.native ||
+                0,
+              asNative: true,
+            },
+          ].map((stat) => (
+            <Stat key={stat.id} {...stat} />
+          ))}
+        </Box>
       </Box>
     </Flex>
   )
