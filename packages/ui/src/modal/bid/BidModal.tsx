@@ -38,7 +38,6 @@ import {
   faCalendar,
   faClose,
   faChevronDown,
-  faCheckCircle,
 } from '@fortawesome/free-solid-svg-icons'
 import Flatpickr from 'react-flatpickr'
 import TransactionProgress from '../TransactionProgress'

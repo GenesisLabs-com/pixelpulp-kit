@@ -8,7 +8,7 @@ import {
   FormatCurrency,
   FormatCryptoCurrency,
 } from '../primitives'
-import Fees from './acceptBid/Fees'
+// import Fees from './acceptBid/Fees'
 
 type Props = {
   img?: string
@@ -74,7 +74,7 @@ const TokenPrimitive: FC<Props> = ({
           </Box>
           <Grid css={{ rowGap: 2 }}>
             <Text
-              style="h6"
+              style="h5"
               ellipsify
               color={isUnavailable ? 'blackWhite' : 'base'}
             >

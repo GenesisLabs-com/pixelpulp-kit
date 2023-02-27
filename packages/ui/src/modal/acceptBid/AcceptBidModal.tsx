@@ -13,10 +13,7 @@ import {
 
 import { Progress } from './Progress'
 import { Modal } from '../Modal'
-import {
-  faCircleExclamation,
-  faCheckCircle,
-} from '@fortawesome/free-solid-svg-icons'
+import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import TokenLineItem from '../TokenLineItem'
 import {

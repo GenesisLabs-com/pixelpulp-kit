@@ -11,6 +11,7 @@ import Progress from '../Progress'
 import { useNetwork } from 'wagmi'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
+import OfferCancelledIcon from '../../img/OfferCancelledIcon'
 
 type Props = Pick<Parameters<typeof Modal>['0'], 'trigger'> & {
   openState?: [boolean, Dispatch<SetStateAction<boolean>>]
@@ -114,7 +115,7 @@ export function CancelListingModal({
               </Flex>
             )}
             {isListingAvailable && cancelStep === CancelStep.Cancel && (
-              <Flex direction="column">
+              <Flex direction="column" css={{ p: '1rem 1.625rem 1.625rem' }}>
                 {transactionError && (
                   <Flex
                     css={{
@@ -135,47 +136,59 @@ export function CancelListingModal({
                     </Text>
                   </Flex>
                 )}
-                <Box css={{ p: '$4', borderBottom: '1px solid $borderColor' }}>
-                  <TokenPrimitive
-                    img={listingImg}
-                    name={listing.criteria?.data?.token?.name}
-                    price={listing?.price?.amount?.decimal}
-                    usdPrice={totalUsd}
-                    collection={listing.criteria?.data?.collection?.name || ''}
-                    currencyContract={listing.price?.currency?.contract}
-                    currencyDecimals={listing?.price?.currency?.decimals}
-                    expires={expires}
-                    source={(listing?.source?.icon as string) || ''}
-                  />
-                </Box>
+
+                <TokenPrimitive
+                  img={listingImg}
+                  name={listing?.criteria?.data?.token?.name}
+                  price={listing?.price?.amount?.decimal}
+                  usdPrice={totalUsd}
+                  collection={listing?.criteria?.data?.collection?.name || ''}
+                  currencyContract={listing?.price?.currency?.contract}
+                  currencyDecimals={listing?.price?.currency?.decimals}
+                  expires={expires}
+                  source={(listing?.source?.icon as string) || ''}
+                />
+
                 <Text
-                  style="body3"
-                  color="subtle"
-                  css={{ mt: '$3', mr: '$3', ml: '$3', textAlign: 'center' }}
+                  style="subtitle2"
+                  css={{
+                    color: 'pColor',
+                    m: '$3 auto 0',
+                    maxWidth: '28rem',
+                    textAlign: 'center',
+                  }}
                 >
                   This will cancel your listing. You will be asked to confirm
                   this cancelation from your wallet.
                 </Text>
-                <Button onClick={cancelOrder} css={{ m: '$4' }}>
+                <Button
+                  onClick={cancelOrder}
+                  css={{
+                    borderRadius: '0.75rem',
+                    fontSize: '1rem',
+                    fontWeight: 500,
+                    mt: '2.5rem',
+                    width: '100%',
+                  }}
+                >
                   Continue to Cancel
                 </Button>
               </Flex>
             )}
             {cancelStep === CancelStep.Approving && (
-              <Flex direction="column">
-                <Box css={{ p: '$4', borderBottom: '1px solid $borderColor' }}>
-                  <TokenPrimitive
-                    img={listingImg}
-                    name={listing?.criteria?.data?.token?.name}
-                    price={listing?.price?.amount?.decimal}
-                    usdPrice={totalUsd}
-                    collection={listing?.criteria?.data?.collection?.name || ''}
-                    currencyContract={listing?.price?.currency?.contract}
-                    currencyDecimals={listing?.price?.currency?.decimals}
-                    expires={expires}
-                    source={(listing?.source?.icon as string) || ''}
-                  />
-                </Box>
+              <Flex direction="column" css={{ p: '1rem 1.625rem 1.625rem' }}>
+                <TokenPrimitive
+                  img={listingImg}
+                  name={listing?.criteria?.data?.token?.name}
+                  price={listing?.price?.amount?.decimal}
+                  usdPrice={totalUsd}
+                  collection={listing?.criteria?.data?.collection?.name || ''}
+                  currencyContract={listing?.price?.currency?.contract}
+                  currencyDecimals={listing?.price?.currency?.decimals}
+                  expires={expires}
+                  source={(listing?.source?.icon as string) || ''}
+                />
+
                 {!stepData && <Loader css={{ height: 206 }} />}
                 {stepData && (
                   <>
@@ -190,7 +203,16 @@ export function CancelListingModal({
                     />
                   </>
                 )}
-                <Button disabled={true} css={{ m: '$4' }}>
+                <Button
+                  disabled={true}
+                  css={{
+                    borderRadius: '0.75rem',
+                    fontSize: '1rem',
+                    fontWeight: 500,
+                    mt: '2.5rem',
+                    width: '100%',
+                  }}
+                >
                   <Loader />
                   {stepData?.currentStepItem.txHash
                     ? 'Waiting for transaction to be validated'
@@ -198,57 +220,73 @@ export function CancelListingModal({
                 </Button>
               </Flex>
             )}
-            {cancelStep === CancelStep.Complete && (
-              <Flex direction="column">
-                <Flex
+            {/* {cancelStep === CancelStep.Complete && ( */}
+            <Flex direction="column" css={{ p: '1rem 1.625rem 1.625rem' }}>
+              <Flex
+                css={{
+                  p: '$4',
+                  py: '$5',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  textAlign: 'center',
+                }}
+              >
+                <Box
                   css={{
-                    p: '$4',
-                    py: '$5',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    textAlign: 'center',
+                    w: 48,
+                    h: 48,
+                    m: '1.25rem auto',
+                    display: 'flex',
                   }}
                 >
-                  <Text style="h5" css={{ mb: '$2' }}>
-                    Listing Canceled!
-                  </Text>
-                  <Text style="body3" color="subtle" css={{ mb: 24 }}>
-                    <>
-                      Your{' '}
-                      <Text style="body3" color="accent">
-                        {listing?.source?.name as string}
-                      </Text>{' '}
-                      listing for{' '}
-                      <Text style="body3" color="accent">
-                        {listing?.criteria?.data?.token?.name ||
-                          listing?.criteria?.data?.collection?.name}{' '}
-                      </Text>
-                      at {listing?.price?.amount?.decimal}{' '}
-                      {listing?.price?.currency?.symbol} has been canceled.
-                    </>
-                  </Text>
+                  <OfferCancelledIcon />
+                </Box>
+                <Text style="h4" css={{ color: 'pColor', mb: '$2' }}>
+                  Cancelled!
+                </Text>
+                <Text style="body4" color="pColor" css={{ mb: 24 }}>
+                  <>
+                    Your{' '}
+                    <Text style="body3" color="accent">
+                      {listing?.source?.name as string}
+                    </Text>{' '}
+                    listing for{' '}
+                    <Text style="body3" color="accent">
+                      {listing?.criteria?.data?.token?.name ||
+                        listing?.criteria?.data?.collection?.name}{' '}
+                    </Text>
+                    at {listing?.price?.amount?.decimal}{' '}
+                    {listing?.price?.currency?.symbol} has been canceled.
+                  </>
+                </Text>
 
-                  <Anchor
-                    color="primary"
-                    weight="medium"
-                    css={{ fontSize: 12 }}
-                    href={`${blockExplorerBaseUrl}/tx/${stepData?.currentStepItem.txHash}`}
-                    target="_blank"
-                  >
-                    View on{' '}
-                    {activeChain?.blockExplorers?.default.name || 'Etherscan'}
-                  </Anchor>
-                </Flex>
-                <Button
-                  onClick={() => {
-                    setOpen(false)
-                  }}
-                  css={{ m: '$4' }}
+                <Anchor
+                  color="primary"
+                  weight="medium"
+                  css={{ fontSize: 12 }}
+                  href={`${blockExplorerBaseUrl}/tx/${stepData?.currentStepItem.txHash}`}
+                  target="_blank"
                 >
-                  Close
-                </Button>
+                  View on{' '}
+                  {activeChain?.blockExplorers?.default.name || 'Etherscan'}
+                </Anchor>
               </Flex>
-            )}
+              <Button
+                onClick={() => {
+                  setOpen(false)
+                }}
+                css={{
+                  borderRadius: '0.75rem',
+                  fontSize: '1rem',
+                  fontWeight: 500,
+                  mt: '2.5rem',
+                  width: '100%',
+                }}
+              >
+                Close
+              </Button>
+            </Flex>
+            {/* )} */}
           </Modal>
         )
       }}

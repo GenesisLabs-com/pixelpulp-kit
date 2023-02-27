@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Box, ErrorWell } from '../primitives'
+import { ErrorWell } from '../primitives'
 import TokenPrimitive from './TokenPrimitive'
 import { useCollections, useTokens } from '../hooks'
 
