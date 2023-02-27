@@ -220,73 +220,73 @@ export function CancelListingModal({
                 </Button>
               </Flex>
             )}
-            {/* {cancelStep === CancelStep.Complete && ( */}
-            <Flex direction="column" css={{ p: '1rem 1.625rem 1.625rem' }}>
-              <Flex
-                css={{
-                  p: '$4',
-                  py: '$5',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  textAlign: 'center',
-                }}
-              >
-                <Box
+            {cancelStep === CancelStep.Complete && (
+              <Flex direction="column" css={{ p: '1rem 1.625rem 1.625rem' }}>
+                <Flex
                   css={{
-                    w: 48,
-                    h: 48,
-                    m: '1.25rem auto',
-                    display: 'flex',
+                    p: '$4',
+                    py: '$5',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    textAlign: 'center',
                   }}
                 >
-                  <OfferCancelledIcon />
-                </Box>
-                <Text style="h4" css={{ color: 'pColor', mb: '$2' }}>
-                  Cancelled!
-                </Text>
-                <Text style="body4" color="pColor" css={{ mb: 24 }}>
-                  <>
-                    Your{' '}
-                    <Text style="body3" color="accent">
-                      {listing?.source?.name as string}
-                    </Text>{' '}
-                    listing for{' '}
-                    <Text style="body3" color="accent">
-                      {listing?.criteria?.data?.token?.name ||
-                        listing?.criteria?.data?.collection?.name}{' '}
-                    </Text>
-                    at {listing?.price?.amount?.decimal}{' '}
-                    {listing?.price?.currency?.symbol} has been canceled.
-                  </>
-                </Text>
+                  <Box
+                    css={{
+                      w: 48,
+                      h: 48,
+                      m: '1.25rem auto',
+                      display: 'flex',
+                    }}
+                  >
+                    <OfferCancelledIcon />
+                  </Box>
+                  <Text style="h4" css={{ color: 'pColor', mb: '$2' }}>
+                    Cancelled!
+                  </Text>
+                  <Text style="body4" css={{ color: 'pColor', mb: 24 }}>
+                    <>
+                      Your{' '}
+                      <Text style="body3" color="accent">
+                        {listing?.source?.name as string}
+                      </Text>{' '}
+                      listing for{' '}
+                      <Text style="body3" color="accent">
+                        {listing?.criteria?.data?.token?.name ||
+                          listing?.criteria?.data?.collection?.name}{' '}
+                      </Text>
+                      at {listing?.price?.amount?.decimal}{' '}
+                      {listing?.price?.currency?.symbol} has been canceled.
+                    </>
+                  </Text>
 
-                <Anchor
-                  color="primary"
-                  weight="medium"
-                  css={{ fontSize: 12 }}
-                  href={`${blockExplorerBaseUrl}/tx/${stepData?.currentStepItem.txHash}`}
-                  target="_blank"
+                  <Anchor
+                    color="primary"
+                    weight="medium"
+                    css={{ fontSize: 12 }}
+                    href={`${blockExplorerBaseUrl}/tx/${stepData?.currentStepItem.txHash}`}
+                    target="_blank"
+                  >
+                    View on{' '}
+                    {activeChain?.blockExplorers?.default.name || 'Etherscan'}
+                  </Anchor>
+                </Flex>
+                <Button
+                  onClick={() => {
+                    setOpen(false)
+                  }}
+                  css={{
+                    borderRadius: '0.75rem',
+                    fontSize: '1rem',
+                    fontWeight: 500,
+                    mt: '2.5rem',
+                    width: '100%',
+                  }}
                 >
-                  View on{' '}
-                  {activeChain?.blockExplorers?.default.name || 'Etherscan'}
-                </Anchor>
+                  Close
+                </Button>
               </Flex>
-              <Button
-                onClick={() => {
-                  setOpen(false)
-                }}
-                css={{
-                  borderRadius: '0.75rem',
-                  fontSize: '1rem',
-                  fontWeight: 500,
-                  mt: '2.5rem',
-                  width: '100%',
-                }}
-              >
-                Close
-              </Button>
-            </Flex>
-            {/* )} */}
+            )}
           </Modal>
         )
       }}
