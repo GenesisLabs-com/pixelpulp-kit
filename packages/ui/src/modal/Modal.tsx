@@ -11,8 +11,8 @@ import { faClose, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { Anchor, Button, Flex, Text, Loader, Box } from '../primitives'
 import { styled } from '../../stitches.config'
 import { Dialog } from '../primitives/Dialog'
-import ReservoirLogoWhiteText from '../img/ReservoirLogoWhiteText'
 import { ProviderOptionsContext } from '../ReservoirKitProvider'
+import GenesisLabLogoWhite from '../img/GenesisLabLogoWhite'
 
 const Title = styled(DialogPrimitive.Title, {
   margin: 0,
@@ -166,7 +166,7 @@ export const Modal = forwardRef<ElementRef<typeof Dialog>, Props>(
                 display: 'flex',
               }}
             >
-              <ReservoirLogoWhiteText />
+              <GenesisLabLogoWhite />
             </Anchor>
           </Flex>
         )}

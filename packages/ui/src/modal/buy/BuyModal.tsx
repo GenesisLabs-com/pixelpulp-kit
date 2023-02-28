@@ -58,7 +58,7 @@ function titleForStep(step: BuyStep) {
     case BuyStep.AddFunds:
       return 'Add Funds'
     case BuyStep.Unavailable:
-      return 'Selected item is no longer Available'
+      return 'Checkout'
     default:
       return 'Checkout'
   }
@@ -208,12 +208,24 @@ export function BuyModal({
                     currency={currency}
                     sourceImg={sourceImg}
                   />
+                  {buyStep === BuyStep.Unavailable ? (
+                    <Text
+                      style="subtitle2"
+                      css={{
+                        color: '#EE0E0E',
+                        textAlign: 'center',
+                        my: '3rem',
+                      }}
+                    >
+                      Selected item is no longer Available
+                    </Text>
+                  ) : null}
                   <Button
                     onClick={() => {
                       setOpen(false)
                     }}
                     css={{
-                      my: '$4',
+                      mb: '$4',
                       borderRadius: '0.75rem',
                       fontSize: '1rem',
                       fontWeight: 500,
@@ -346,7 +358,12 @@ export function BuyModal({
                     {hasEnoughCurrency ? (
                       <Button
                         onClick={buyToken}
-                        css={{ width: '100%', borderRadius: '0.75rem' }}
+                        css={{
+                          borderRadius: '0.75rem',
+                          fontSize: '1rem',
+                          fontWeight: 500,
+                          width: '100%',
+                        }}
                         color="primary"
                       >
                         Checkout
@@ -370,7 +387,12 @@ export function BuyModal({
                           onClick={() => {
                             setBuyStep(BuyStep.AddFunds)
                           }}
-                          css={{ width: '100%', borderRadius: '0.75rem' }}
+                          css={{
+                            borderRadius: '0.75rem',
+                            fontSize: '1rem',
+                            fontWeight: 500,
+                            width: '100%',
+                          }}
                         >
                           Add Funds
                         </Button>
@@ -448,7 +470,7 @@ export function BuyModal({
                       justify="center"
                       direction="column"
                     >
-                      {!!token.token?.collection?.image && (
+                      {!!token?.token?.collection?.image && (
                         <Box css={{ mr: '$1' }}>
                           <img
                             src={token.token?.collection?.image}
@@ -496,12 +518,12 @@ export function BuyModal({
                   </Flex>
                   <Flex
                     css={{
-                      p: '$4',
+                      // p: '$4',
                       flexDirection: 'column',
-                      gap: '$3',
-                      '@bp1': {
-                        flexDirection: 'row',
-                      },
+                      // gap: '$3',
+                      // '@bp1': {
+                      //   flexDirection: 'row',
+                      // },
                     }}
                   >
                     {!!onGoToToken ? (
@@ -515,19 +537,21 @@ export function BuyModal({
                             borderRadius: '0.75rem',
                             fontSize: '1rem',
                             fontWeight: 500,
+                            w: '100%',
                           }}
-                          color="ghost"
+                          color="primary"
                         >
                           Close
                         </Button>
                         <Button
-                          style={{
+                          css={{
                             flex: 1,
                             borderRadius: '0.75rem',
                             fontSize: '1rem',
                             fontWeight: 500,
+                            w: '100%',
                           }}
-                          color="primary"
+                          color="ghost"
                           onClick={() => {
                             onGoToToken()
                           }}
