@@ -84,22 +84,23 @@ function titleForStep(step: BidStep) {
 }
 
 const ContentContainer = styled(Flex, {
-  width: '100%',
   flexDirection: 'column',
-  // '@bp1': {
-  //   flexDirection: 'row',
-  // },
+  p: '1.625rem',
+  width: '100%',
+  '@bp0': {
+    p: '1rem 0.875rem',
+  },
 })
 
 const MainContainer = styled(Flex, {
   flex: 1,
-  borderColor: '$borderColor',
-  borderTopWidth: 1,
-  borderLeftWidth: 0,
-  '@bp1': {
-    borderTopWidth: 0,
-    borderLeftWidth: 1,
-  },
+  // borderColor: '$borderColor',
+  // borderTopWidth: 1,
+  // borderLeftWidth: 0,
+  // '@bp1': {
+  //   borderTopWidth: 0,
+  //   borderLeftWidth: 1,
+  // },
 
   defaultVariants: {
     direction: 'column',
@@ -300,7 +301,7 @@ export function BidModal({
                   collection={collection}
                   trait={trait}
                 />
-                <MainContainer css={{ p: '1rem 1.625rem 1.625rem' }}>
+                <MainContainer>
                   {isBanned && (
                     <ErrorWell
                       message="Token is not tradable on OpenSea"
@@ -669,7 +670,7 @@ export function BidModal({
                   collection={collection}
                   bidData={bidData}
                 />
-                <MainContainer css={{ p: '1rem 1.625rem 1.625rem' }}>
+                <MainContainer css={{ p: '1rem 0 0' }}>
                   <ProgressBar
                     value={stepData?.stepProgress || 0}
                     max={stepData?.totalSteps || 0}
@@ -784,7 +785,12 @@ export function BidModal({
               <Flex
                 direction="column"
                 align="center"
-                css={{ p: '1rem 1.625rem 1.625rem' }}
+                css={{
+                  p: '1rem 0.875rem',
+                  '@bp1': {
+                    p: '1.625rem',
+                  },
+                }}
               >
                 <Box
                   css={{
@@ -814,6 +820,7 @@ export function BidModal({
                     maxWidth: 300,
                     overflow: 'hidden',
                     color: '$pColor',
+                    textAlign: 'center',
                   }}
                 >
                   Your offer has been made successfully

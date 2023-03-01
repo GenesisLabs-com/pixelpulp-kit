@@ -189,11 +189,14 @@ export function BuyModal({
             }}
             loading={loading}
           >
-            <div
-              style={{
+            <Box
+              css={{
                 boxSizing: 'border-box',
-                padding: '1.625rem',
+                p: '1.625rem',
                 width: '100%',
+                '@bp0': {
+                  p: '1rem 0.875rem',
+                },
               }}
             >
               {buyStep === BuyStep.Unavailable && !loading && (
@@ -225,7 +228,6 @@ export function BuyModal({
                       setOpen(false)
                     }}
                     css={{
-                      mb: '$4',
                       borderRadius: '0.75rem',
                       fontSize: '1rem',
                       fontWeight: 500,
@@ -268,16 +270,26 @@ export function BuyModal({
                     sourceImg={sourceImg}
                   />
                   {quantityAvailable > 1 && (
-                    <Flex
-                      css={{ pt: '$4', px: '$4' }}
-                      align="center"
-                      justify="between"
-                    >
-                      <Text style="body2" color="subtle">
+                    <Flex css={{ pt: '$4' }} align="center" justify="between">
+                      <Text
+                        css={{
+                          flex: 1,
+                          minWidth: '0',
+                          alignItems: 'center',
+                          fontSize: '0.875rem',
+                          fontWeight: 500,
+                          color: '$pColor',
+                        }}
+                      >
                         {quantityAvailable} listings are available at this price
                       </Text>
                       <Select
-                        css={{ minWidth: 77, width: 'auto', flexGrow: 0 }}
+                        css={{
+                          minWidth: 77,
+                          width: 'auto',
+                          flexGrow: 0,
+                          borderRadius: '0.75rem',
+                        }}
                         value={`${quantity}`}
                         onValueChange={(value: string) => {
                           setQuantity(Number(value))
@@ -292,69 +304,83 @@ export function BuyModal({
                     </Flex>
                   )}
                   {referrerFee > 0 && (
-                    <>
-                      <Flex
-                        align="center"
-                        justify="between"
-                        css={{ pt: '$4', px: '$4' }}
+                    <Flex
+                      align="center"
+                      justify="between"
+                      css={{
+                        backgroundColor: '$priceBackground',
+                        borderRadius: '0.75rem',
+                        mt: '1rem',
+                        padding: '1rem',
+                      }}
+                    >
+                      <Text
+                        css={{
+                          flex: 1,
+                          minWidth: '0',
+                          alignItems: 'center',
+                          fontSize: '0.875rem',
+                          fontWeight: 500,
+                          color: '$pColor',
+                        }}
                       >
-                        <Text style="subtitle2">Referral Fee</Text>
+                        Referral Fee
+                      </Text>
+                      <Flex justify="end" direction="column">
                         <FormatCryptoCurrency
                           amount={referrerFee}
                           address={currency?.contract}
                           decimals={currency?.decimals}
                         />
-                      </Flex>
-                      <Flex justify="end">
                         <FormatCurrency
                           amount={feeUsd}
                           color="subtle"
                           css={{ pr: '$4' }}
                         />
                       </Flex>
-                    </>
+                    </Flex>
                   )}
 
-                  <Flex
-                    align="center"
-                    justify="between"
+                  <Box
                     css={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      width: '100%',
                       backgroundColor: '$priceBackground',
-                      borderBottomLeftRadius: '0.75rem',
-                      borderBottomRightRadius: '0.75rem',
-                      padding: '0 1rem 1rem',
+                      borderRadius: '0.75rem',
+                      mt: '1rem',
+                      padding: '1rem',
                     }}
                   >
-                    <Box
+                    <Text
                       css={{
-                        display: 'flex',
+                        flex: 1,
+                        minWidth: '0',
                         alignItems: 'center',
-                        justifyContent: 'space-between',
-                        borderTop: '1px solid $borderColor',
-                        width: '100%',
-                        pt: '1rem',
+                        fontSize: '0.875rem',
+                        fontWeight: 500,
+                        color: '$pColor',
                       }}
                     >
-                      <Text style="body4" color="subtitle">
-                        Total
-                      </Text>
-                      <Flex justify="end" direction="column">
-                        <FormatCryptoCurrency
-                          textStyle="h6"
-                          amount={totalPrice}
-                          address={currency?.contract}
-                          decimals={currency?.decimals}
-                        />
-                        <FormatCurrency
-                          amount={totalUsd}
-                          style="subtitle2"
-                          color="blackWhite"
-                        />
-                      </Flex>
-                    </Box>
-                  </Flex>
+                      Total
+                    </Text>
+                    <Flex justify="end" direction="column">
+                      <FormatCryptoCurrency
+                        textStyle="h6"
+                        amount={totalPrice}
+                        address={currency?.contract}
+                        decimals={currency?.decimals}
+                      />
+                      <FormatCurrency
+                        amount={totalUsd}
+                        style="subtitle2"
+                        color="blackWhite"
+                      />
+                    </Flex>
+                  </Box>
 
-                  <Box css={{ py: '$4', width: '100%' }}>
+                  <Box css={{ pt: '$4', width: '100%' }}>
                     {hasEnoughCurrency ? (
                       <Button
                         onClick={buyToken}
@@ -727,7 +753,7 @@ export function BuyModal({
                   </Button>
                 </Flex>
               )}
-            </div>
+            </Box>
           </Modal>
         )
       }}

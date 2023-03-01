@@ -38,11 +38,11 @@ type Props = {
   | 'onFocusCapture'
 >
 
-// const Logo = styled(ReservoirLogoWhiteText, {
-//   '& .letter': {
-//     fill: '$reservoirLogoColor',
-//   },
-// })
+const Logo = styled(GenesisLabLogoWhite, {
+  '& .letter': {
+    backgroundColor: 'yellow',
+  },
+})
 
 // const Img = styled('img', {
 //   height: 56,
@@ -85,6 +85,9 @@ export const Modal = forwardRef<ElementRef<typeof Dialog>, Props>(
             justifyContent: 'space-between',
             borderTopRightRadius: '0.75rem',
             borderTopLeftRadius: '0.75rem',
+            '@bp0': {
+              p: '1rem 0.875rem 0',
+            },
           }}
         >
           <Title css={{ alignItems: 'center', display: 'flex' }}>
@@ -151,6 +154,9 @@ export const Modal = forwardRef<ElementRef<typeof Dialog>, Props>(
               borderBottomLeftRadius: '0.75rem',
               display: 'flex',
               width: '100%',
+              '@bp0': {
+                p: '1rem 0.875rem',
+              },
             }}
           >
             <Text
@@ -160,13 +166,14 @@ export const Modal = forwardRef<ElementRef<typeof Dialog>, Props>(
               Powered by
             </Text>
             <Anchor
-              href="#"
+              href="https://www.genesislab.com/"
               target="_blank"
+              rel="noopener noreferrer"
               style={{
                 display: 'flex',
               }}
             >
-              <GenesisLabLogoWhite />
+              <Logo />
             </Anchor>
           </Flex>
         )}

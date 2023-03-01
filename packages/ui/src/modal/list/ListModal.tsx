@@ -69,9 +69,10 @@ const Span = styled('span', {})
 const ContentContainer = styled(Flex, {
   width: '100%',
   flexDirection: 'column',
-  // '@bp1': {
-  //   flexDirection: 'row',
-  // },
+  p: '1.625rem',
+  '@bp0': {
+    p: '1rem 0.875rem',
+  },
 })
 
 const MainContainer = styled(Flex, {
@@ -267,7 +268,7 @@ export function ListModal({
               <ContentContainer>
                 <TokenStats token={token} collection={collection} />
                 <MainContainer>
-                  <Box css={{ p: '0 1.625rem', flex: 1 }}>
+                  <Box css={{ flex: 1 }}>
                     {currencies.length > 1 ? (
                       <Text
                         style="subtitle1"
@@ -358,7 +359,13 @@ export function ListModal({
                           borderRadius: '0.75rem',
                         }}
                       >
-                        <Box css={{ mr: '$2' }}>
+                        <Box
+                          css={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            mr: '$2',
+                          }}
+                        >
                           <img
                             src={localMarketplace?.imageUrl || ''}
                             style={{
@@ -378,28 +385,16 @@ export function ListModal({
                           <Flex css={{ alignItems: 'center', gap: 8 }}>
                             <Text
                               style="subtitle2"
-                              css={{ color: '$pColor' }}
-                              as="p"
+                              color="subtle"
+                              css={{ mr: '$2' }}
                             >
-                              on Reservoir
+                              Marketplace fee:{' '}
+                              {((localMarketplace?.fee?.bps || 0) / 10000) *
+                                100}
+                              %
                             </Text>
-                            <InfoTooltip
-                              side="bottom"
-                              width={200}
-                              content={
-                                'Listings made on this marketplace will be distributed across the reservoir ecosystem'
-                              }
-                            />
                           </Flex>
                         </Box>
-                        <Text
-                          style="subtitle2"
-                          color="subtle"
-                          css={{ mr: '$2' }}
-                        >
-                          Marketplace fee:{' '}
-                          {((localMarketplace?.fee?.bps || 0) / 10000) * 100}%
-                        </Text>
                       </Flex>
                       {availableMarketplaces.length > 1 && (
                         <Text
@@ -435,7 +430,7 @@ export function ListModal({
                         ))}
                     </Box>
                   </Box>
-                  <Box css={{ p: '1.5rem 1.625rem', width: '100%' }}>
+                  <Box css={{ p: '1.5rem 0 0', width: '100%' }}>
                     {marketplacesToApprove.length > 0 && (
                       <Text
                         color="accent"
@@ -471,7 +466,7 @@ export function ListModal({
               <ContentContainer>
                 <TokenStats token={token} collection={collection} />
                 <MainContainer>
-                  <Box css={{ p: '0 1.625rem', flex: 1 }}>
+                  <Box css={{ flex: 1 }}>
                     <Flex align="center" css={{ mb: '$4' }}>
                       <Button
                         color="ghost"
@@ -612,7 +607,7 @@ export function ListModal({
                       </Select>
                     </Box>
                   </Box>
-                  <Box css={{ p: '1rem 1.625rem 1.625rem', width: '100%' }}>
+                  <Box css={{ p: '1rem 0 0', width: '100%' }}>
                     <Button
                       disabled={selectedMarketplaces.some(
                         (marketplace) =>
@@ -640,7 +635,7 @@ export function ListModal({
                   listingData={listingData}
                   currency={currency}
                 />
-                <MainContainer css={{ p: '1rem 1.625rem 1.625rem' }}>
+                <MainContainer css={{ p: '1rem 0 0' }}>
                   <ProgressBar
                     value={stepData?.stepProgress || 0}
                     max={stepData?.totalSteps || 0}
@@ -761,7 +756,7 @@ export function ListModal({
                 listingData={listingData}
                 currency={currency}
               /> */}
-                <MainContainer css={{ p: '1.625rem' }}>
+                <MainContainer>
                   <ProgressBar
                     value={stepData?.totalSteps || 0}
                     max={stepData?.totalSteps || 0}

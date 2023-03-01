@@ -25,11 +25,6 @@ const TokenStats: FC<Props> = ({ token, collection }) => {
       css={{
         width: '100%',
         flexDirection: 'column',
-        // '@bp1': {
-        //   width: 220,
-        //   flexDirection: 'column',
-        // },
-        p: '1rem 1.625rem',
       }}
     >
       <Token collection={collection} token={token} />
@@ -40,23 +35,62 @@ const TokenStats: FC<Props> = ({ token, collection }) => {
           w: '100%',
         }}
       >
-        {/* <TokenName collection={collection} token={token} /> */}
         <Box
           css={{
             display: 'flex',
             justifyContent: 'space-between',
-            flexDirection: 'row',
             alignItems: 'baseline',
             mt: '$4',
-            [`& ${Stat}:not(:last-child)`]: {
-              borderRight: '1px solid $closeBorder',
+            [`& ${Stat}:nth-child(3)`]: {
+              borderRight: 'none',
             },
             [`& ${Stat}:nth-child(2)`]: {
               justifyContent: 'center',
               minWidth: '6.5rem',
             },
-            [`& ${Stat}:not(:first-child)`]: {
-              pl: '1.125rem',
+            [`& ${Stat}:first-child`]: {
+              pl: '0',
+            },
+            [`& ${Stat}:last-child`]: {
+              pl: '0',
+              borderRight: 'none',
+            },
+            [`& ${Stat}`]: {
+              m: '0 0 1rem',
+              pl: '1rem',
+              w: '33%',
+              borderRight: '1px solid $closeBorder',
+            },
+            '@bp0': {
+              [`& ${Stat}`]: {
+                m: '0 0 1rem',
+                pl: '1rem',
+                w: '50%',
+                borderRight: '1px solid $closeBorder',
+              },
+              [`& ${Stat}:nth-child(2)`]: {
+                borderRight: 'none',
+              },
+              [`& ${Stat}:nth-child(3)`]: {
+                borderRight: '1px solid $closeBorder',
+                pl: '0',
+              },
+              [`& ${Stat}:last-child`]: {
+                pl: '1rem',
+                borderRight: 'none',
+              },
+            },
+            flexWrap: 'wrap',
+            '@bp1': {
+              m: '0',
+              flexWrap: 'nowrap',
+              w: 'auto',
+              [`& ${Stat}:not(:last-child)`]: {
+                borderRight: '1px solid $closeBorder',
+              },
+              [`& ${Stat}:not(:first-child)`]: {
+                pl: '1.125rem',
+              },
             },
           }}
         >
