@@ -154,7 +154,6 @@ const TokenStats: FC<Props> = ({ token, collection, trait }) => {
             },
             flexWrap: 'wrap',
             '@bp1': {
-              m: '0',
               flexWrap: 'nowrap',
               w: 'auto',
               [`& ${Stat}:not(:last-child)`]: {

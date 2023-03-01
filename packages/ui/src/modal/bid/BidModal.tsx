@@ -615,13 +615,12 @@ export function BidModal({
                       )}
                       <Flex
                         css={{
-                          gap: '$2',
                           mt: 10,
                           overflow: 'hidden',
-                          flexDirection: 'column-reverse',
-                          '@bp1': {
-                            flexDirection: 'row',
-                          },
+                          flexDirection: 'column',
+                          // '@bp1': {
+                          //   flexDirection: 'row',
+                          // },
                         }}
                       >
                         <Button
@@ -642,16 +641,20 @@ export function BidModal({
                         <Button
                           css={{
                             flex: 1,
-                            maxHeight: 44,
                             borderRadius: '0.75rem',
                             fontSize: '1rem',
                             fontWeight: 500,
+                            mt: '1rem',
                             width: '100%',
                           }}
                           disabled={!hasEnoughNativeCurrency}
                           onClick={placeBid}
                         >
-                          <Text style="h6" color="button" ellipsify>
+                          <Text
+                            color="button"
+                            css={{ fontWeight: 500 }}
+                            ellipsify
+                          >
                             Convert {amountToWrap} {balance?.symbol || 'ETH'}{' '}
                             for me
                           </Text>
