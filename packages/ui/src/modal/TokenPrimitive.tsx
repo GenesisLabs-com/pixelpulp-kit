@@ -170,7 +170,7 @@ const TokenPrimitive: FC<Props> = ({
               color: '$pColor',
             }}
           >
-            Offer Price
+            Price
           </Flex>
           <Box
             css={{
