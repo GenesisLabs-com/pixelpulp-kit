@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Box, ErrorWell } from '../primitives'
+import { ErrorWell } from '../primitives'
 import TokenPrimitive from './TokenPrimitive'
 import { useCollections, useTokens } from '../hooks'
 
@@ -50,7 +50,7 @@ const TokenLineItem: FC<TokenLineItemProps> = ({
     : (collection?.image as string)
 
   return (
-    <Box css={{ p: '$4', borderBottom: '1px solid $borderColor' }}>
+    <>
       <TokenPrimitive
         img={img}
         name={name}
@@ -71,7 +71,7 @@ const TokenLineItem: FC<TokenLineItemProps> = ({
           message="Token is not tradable on OpenSea"
         />
       )}
-    </Box>
+    </>
   )
 }
 

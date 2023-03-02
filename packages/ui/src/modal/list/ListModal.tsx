@@ -27,7 +27,7 @@ import {
   StepData,
 } from './ListModalRenderer'
 import { ModalSize } from '../Modal'
-import { faChevronLeft, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import TokenStats from './TokenStats'
 import MarketplaceToggle from './MarketplaceToggle'
 import MarketplacePriceInput from './MarketplacePriceInput'
@@ -39,6 +39,7 @@ import InfoTooltip from '../../primitives/InfoTooltip'
 import { Marketplace } from '../../hooks/useMarketplaces'
 import { Currency } from '../../types/Currency'
 import { constants } from 'ethers'
+import SuccessIcon from '../../img/SuccessIcon'
 
 type ListingCallbackData = {
   listings?: ListingData[]
@@ -68,20 +69,21 @@ const Span = styled('span', {})
 const ContentContainer = styled(Flex, {
   width: '100%',
   flexDirection: 'column',
-  '@bp1': {
-    flexDirection: 'row',
+  p: '1.625rem',
+  '@bp0': {
+    p: '1rem 0.875rem',
   },
 })
 
 const MainContainer = styled(Flex, {
   flex: 1,
-  borderColor: '$borderColor',
-  borderTopWidth: 1,
-  borderLeftWidth: 0,
-  '@bp1': {
-    borderTopWidth: 0,
-    borderLeftWidth: 1,
-  },
+  // borderColor: '$borderColor',
+  // borderTopWidth: 1,
+  // borderLeftWidth: 0,
+  // '@bp1': {
+  //   borderTopWidth: 0,
+  //   borderLeftWidth: 1,
+  // },
 
   defaultVariants: {
     direction: 'column',
@@ -265,9 +267,8 @@ export function ListModal({
             {token && listStep == ListStep.SelectMarkets && (
               <ContentContainer>
                 <TokenStats token={token} collection={collection} />
-
                 <MainContainer>
-                  <Box css={{ p: '$4', flex: 1 }}>
+                  <Box css={{ flex: 1 }}>
                     {currencies.length > 1 ? (
                       <Text
                         style="subtitle1"
@@ -337,70 +338,99 @@ export function ListModal({
                           : 'Available Marketplace'}
                       </Text>
                     )}
-
-                    <Text style="subtitle2" as="p" color="subtle">
-                      Default
-                    </Text>
-                    <Flex align="center" css={{ mb: '$4', mt: '$2' }}>
-                      <Box css={{ mr: '$2' }}>
-                        <img
-                          src={localMarketplace?.imageUrl || ''}
-                          style={{
-                            height: 32,
-                            width: 32,
-                            borderRadius: 4,
-                            visibility: localMarketplace?.imageUrl
-                              ? 'visible'
-                              : 'hidden',
-                          }}
-                        />
-                      </Box>
-                      <Box css={{ mr: '$2', flex: 1 }}>
-                        <Text style="body3">{localMarketplace?.name}</Text>
-                        <Flex css={{ alignItems: 'center', gap: 8 }}>
-                          <Text style="body3" color="subtle" as="div">
-                            on Reservoir
-                          </Text>
-                          <InfoTooltip
-                            side="bottom"
-                            width={200}
-                            content={
-                              'Listings made on this marketplace will be distributed across the reservoir ecosystem'
-                            }
-                          />
-                        </Flex>
-                      </Box>
-                      <Text style="subtitle2" color="subtle" css={{ mr: '$2' }}>
-                        Marketplace fee:{' '}
-                        {((localMarketplace?.fee?.bps || 0) / 10000) * 100}%
+                    <Box
+                      css={{
+                        width: '100%',
+                        backgroundColor: '$priceBackground',
+                        borderRadius: '0.75rem',
+                        p: '0.75rem 0.75rem 1px',
+                      }}
+                    >
+                      <Text style="body4" as="p" color="blackWhite">
+                        Default
                       </Text>
-                    </Flex>
-                    {availableMarketplaces.length > 1 && (
-                      <Text
-                        style="subtitle2"
-                        color="subtle"
-                        as="p"
-                        css={{ mb: '$2' }}
+                      <Flex
+                        align="center"
+                        css={{
+                          mb: '$4',
+                          mt: '$2',
+                          p: '$2',
+                          backgroundColor: '$boxBackground',
+                          borderRadius: '0.75rem',
+                        }}
                       >
-                        Select other marketplaces to list on
-                      </Text>
-                    )}
-                    {availableMarketplaces
-                      .filter(
-                        (marketplace) => marketplace.orderbook !== 'reservoir'
-                      )
-                      .map((marketplace) => (
-                        <Box key={marketplace.name} css={{ mb: '$3' }}>
-                          <MarketplaceToggle
-                            marketplace={marketplace}
-                            onSelection={() => {
-                              toggleMarketplace(marketplace)
+                        <Box
+                          css={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            mr: '$2',
+                          }}
+                        >
+                          <img
+                            src={localMarketplace?.imageUrl || ''}
+                            style={{
+                              height: 32,
+                              width: 32,
+                              borderRadius: 4,
+                              visibility: localMarketplace?.imageUrl
+                                ? 'visible'
+                                : 'hidden',
                             }}
                           />
                         </Box>
-                      ))}
+                        <Box css={{ mr: '$2', flex: 1 }}>
+                          <Text style="body4" color="blackWhite">
+                            {localMarketplace?.name}
+                          </Text>
+                          <Flex css={{ alignItems: 'center', gap: 8 }}>
+                            <Text
+                              style="subtitle2"
+                              color="subtle"
+                              css={{ mr: '$2' }}
+                            >
+                              Marketplace fee:{' '}
+                              {((localMarketplace?.fee?.bps || 0) / 10000) *
+                                100}
+                              %
+                            </Text>
+                          </Flex>
+                        </Box>
+                      </Flex>
+                      {availableMarketplaces.length > 1 && (
+                        <Text
+                          style="body4"
+                          as="p"
+                          color="blackWhite"
+                          css={{ mb: '$2' }}
+                        >
+                          Select other marketplaces to list on
+                        </Text>
+                      )}
+                      {availableMarketplaces
+                        .filter(
+                          (marketplace) => marketplace.orderbook !== 'reservoir'
+                        )
+                        .map((marketplace) => (
+                          <Box
+                            key={marketplace.name}
+                            css={{
+                              p: '$2',
+                              backgroundColor: '$boxBackground',
+                              borderRadius: '0.75rem',
+                              mb: '$3',
+                            }}
+                          >
+                            <MarketplaceToggle
+                              marketplace={marketplace}
+                              onSelection={() => {
+                                toggleMarketplace(marketplace)
+                              }}
+                            />
+                          </Box>
+                        ))}
+                    </Box>
                   </Box>
-                  <Box css={{ p: '$4', width: '100%' }}>
+                  <Box css={{ p: '1.5rem 0 0', width: '100%' }}>
                     {marketplacesToApprove.length > 0 && (
                       <Text
                         color="accent"
@@ -419,7 +449,12 @@ export function ListModal({
                     )}
                     <Button
                       onClick={() => setListStep(ListStep.SetPrice)}
-                      css={{ width: '100%' }}
+                      css={{
+                        width: '100%',
+                        borderRadius: '0.75rem',
+                        fontSize: '1rem',
+                        fontWeight: 500,
+                      }}
                     >
                       Set your price
                     </Button>
@@ -430,9 +465,8 @@ export function ListModal({
             {token && listStep == ListStep.SetPrice && (
               <ContentContainer>
                 <TokenStats token={token} collection={collection} />
-
                 <MainContainer>
-                  <Box css={{ p: '$4', flex: 1 }}>
+                  <Box css={{ flex: 1 }}>
                     <Flex align="center" css={{ mb: '$4' }}>
                       <Button
                         color="ghost"
@@ -573,14 +607,19 @@ export function ListModal({
                       </Select>
                     </Box>
                   </Box>
-                  <Box css={{ p: '$4', width: '100%' }}>
+                  <Box css={{ p: '1rem 0 0', width: '100%' }}>
                     <Button
                       disabled={selectedMarketplaces.some(
                         (marketplace) =>
                           marketplace.price === '' || marketplace.price == 0
                       )}
                       onClick={listToken}
-                      css={{ width: '100%' }}
+                      css={{
+                        borderRadius: '0.75rem',
+                        fontSize: '1rem',
+                        fontWeight: 500,
+                        width: '100%',
+                      }}
                     >
                       List for sale
                     </Button>
@@ -596,17 +635,34 @@ export function ListModal({
                   listingData={listingData}
                   currency={currency}
                 />
-                <MainContainer css={{ p: '$4' }}>
+                <MainContainer css={{ p: '1rem 0 0' }}>
                   <ProgressBar
                     value={stepData?.stepProgress || 0}
                     max={stepData?.totalSteps || 0}
                   />
                   {transactionError && <ErrorWell css={{ mt: 24 }} />}
                   {stepData && (
-                    <>
+                    <Box
+                      css={{
+                        backgroundColor: '$priceBackground',
+                        borderRadius: '0.75rem',
+                        padding: '1.25rem',
+                        width: '100%',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        m: '0 0 1rem',
+                        textAlign: 'center',
+                      }}
+                    >
                       <Text
-                        css={{ textAlign: 'center', mt: 48, mb: 28 }}
-                        style="subtitle1"
+                        style="subtitle3"
+                        css={{
+                          color: '$blackWhite',
+                          maxWidth: 327,
+                          mx: 'auto',
+                          mb: 40,
+                        }}
                       >
                         {stepTitle}
                       </Text>
@@ -616,19 +672,17 @@ export function ListModal({
                         toImg={stepData?.listingData.marketplace.imageUrl || ''}
                       />
                       <Text
-                        css={{
-                          textAlign: 'center',
-                          mt: 24,
-                          maxWidth: 395,
-                          mx: 'auto',
-                          mb: '$4',
-                        }}
                         style="body3"
-                        color="subtle"
+                        css={{
+                          color: '$pColor',
+                          mt: 40,
+                          maxWidth: 327,
+                          mx: 'auto',
+                        }}
                       >
                         {stepData?.currentStep.description}
                       </Text>
-                    </>
+                    </Box>
                   )}
                   {!stepData && (
                     <Flex
@@ -640,21 +694,53 @@ export function ListModal({
                     </Flex>
                   )}
                   {!transactionError && (
-                    <Button css={{ width: '100%', mt: 'auto' }} disabled={true}>
+                    <Button
+                      css={{
+                        width: '100%',
+                        mt: 'auto',
+                        borderRadius: '0.75rem',
+                        fontSize: '1rem',
+                        fontWeight: 500,
+                      }}
+                      disabled={true}
+                    >
                       <Loader />
                       Waiting for Approval
                     </Button>
                   )}
                   {transactionError && (
-                    <Flex css={{ mt: 'auto', gap: 10 }}>
+                    <Flex
+                      css={{
+                        mt: 'auto',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        w: '100%',
+                      }}
+                    >
                       <Button
                         color="secondary"
-                        css={{ flex: 1 }}
+                        css={{
+                          flex: 1,
+                          borderRadius: '0.75rem',
+                          fontSize: '1rem',
+                          fontWeight: 500,
+                          mb: '1rem',
+                          w: '100%',
+                        }}
                         onClick={() => setListStep(ListStep.SetPrice)}
                       >
                         Edit Listing
                       </Button>
-                      <Button css={{ flex: 1 }} onClick={() => listToken()}>
+                      <Button
+                        css={{
+                          flex: 1,
+                          borderRadius: '0.75rem',
+                          fontSize: '1rem',
+                          fontWeight: 500,
+                          w: '100%',
+                        }}
+                        onClick={() => listToken()}
+                      >
                         Retry
                       </Button>
                     </Flex>
@@ -664,13 +750,13 @@ export function ListModal({
             )}
             {token && listStep == ListStep.Complete && (
               <ContentContainer>
-                <TokenListingDetails
-                  token={token}
-                  collection={collection}
-                  listingData={listingData}
-                  currency={currency}
-                />
-                <MainContainer css={{ p: '$4' }}>
+                {/* <TokenListingDetails
+                token={token}
+                collection={collection}
+                listingData={listingData}
+                currency={currency}
+              /> */}
+                <MainContainer>
                   <ProgressBar
                     value={stepData?.totalSteps || 0}
                     max={stepData?.totalSteps || 0}
@@ -681,62 +767,52 @@ export function ListModal({
                     direction="column"
                     css={{ flex: 1, textAlign: 'center', py: '$5' }}
                   >
-                    <Box css={{ color: '$successAccent', mb: 24 }}>
-                      <FontAwesomeIcon icon={faCheckCircle} size="3x" />
+                    <Box
+                      css={{
+                        color: '$successAccent',
+                        mb: 30,
+                        width: 106,
+                        height: 106,
+                      }}
+                    >
+                      {/* <FontAwesomeIcon icon={faCheckCircle} size="3x" /> */}
+                      <SuccessIcon />
                     </Box>
-                    <Text style="h5" css={{ mb: '$2' }} as="h5">
-                      Your item has been listed!
+                    <Text
+                      style="h4"
+                      color="blackWhite"
+                      css={{ mb: '$2' }}
+                      as="h5"
+                    >
+                      Success
                     </Text>
                     <Text
                       style="body3"
-                      color="subtle"
                       as="p"
-                      css={{ mb: 24, maxWidth: 300, overflow: 'hidden' }}
+                      css={{
+                        mb: 24,
+                        maxWidth: 300,
+                        overflow: 'hidden',
+                        color: '$pColor',
+                      }}
                     >
-                      <Text color="accent" ellipsify style="body3">
+                      <Text ellipsify>
                         {token?.token?.name
                           ? token?.token?.name
                           : `#${token?.token?.tokenId}`}
                       </Text>{' '}
-                      from{' '}
-                      <Span css={{ color: '$accentText' }}>
-                        {token?.token?.collection?.name}
-                      </Span>{' '}
-                      has been listed for sale
+                      from <Span>{token?.token?.collection?.name}</Span> has
+                      been listed for sale
                     </Text>
-                    <Text style="subtitle2" as="p" css={{ mb: '$3' }}>
-                      View Listing on
-                    </Text>
-                    <Flex css={{ gap: '$3' }}>
-                      {listingData.map((data) => {
-                        const source =
-                          data.listing.orderbook === 'reservoir' &&
-                          client?.source
-                            ? client?.source
-                            : data.marketplace.name
-                        return (
-                          <a
-                            key={data.listing.orderbook}
-                            target="_blank"
-                            href={`${client?.apiBase}/redirect/sources/${source}/tokens/${token.token?.contract}:${token?.token?.tokenId}/link/v2`}
-                          >
-                            <Image
-                              css={{ width: 24 }}
-                              src={data.marketplace.imageUrl}
-                            />
-                          </a>
-                        )
-                      })}
-                    </Flex>
                   </Flex>
 
                   <Flex
                     css={{
                       flexDirection: 'column',
-                      gap: '$3',
-                      '@bp1': {
-                        flexDirection: 'row',
-                      },
+                      // gap: '$3',
+                      // '@bp1': {
+                      //   flexDirection: 'row',
+                      // },
                     }}
                   >
                     {!!onGoToToken ? (
@@ -745,13 +821,26 @@ export function ListModal({
                           onClick={() => {
                             setOpen(false)
                           }}
-                          css={{ flex: 1 }}
+                          css={{
+                            flex: 1,
+                            borderRadius: '0.75rem',
+                            fontSize: '1rem',
+                            fontWeight: 500,
+                            mb: '1rem',
+                            width: '100%',
+                          }}
                           color="secondary"
                         >
                           Close
                         </Button>
                         <Button
-                          style={{ flex: 1 }}
+                          style={{
+                            flex: 1,
+                            borderRadius: '0.75rem',
+                            fontSize: '1rem',
+                            fontWeight: 500,
+                            width: '100%',
+                          }}
                           color="primary"
                           onClick={() => {
                             onGoToToken()
@@ -765,12 +854,61 @@ export function ListModal({
                         onClick={() => {
                           setOpen(false)
                         }}
-                        style={{ flex: 1 }}
+                        style={{
+                          flex: 1,
+                          borderRadius: '0.75rem',
+                          fontSize: '1rem',
+                          fontWeight: 500,
+                          width: '100%',
+                        }}
                         color="primary"
                       >
                         Close
                       </Button>
                     )}
+                    <Box
+                      css={{
+                        alignItems: 'center',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        w: '100%',
+                      }}
+                    >
+                      <Text
+                        style="body5"
+                        as="p"
+                        css={{
+                          mt: '1.25rem',
+                          textAlign: 'center',
+                          color: 'blackWhite',
+                        }}
+                      >
+                        View Listing on
+                      </Text>{' '}
+                      <Flex css={{ gap: '$3' }}>
+                        {
+                          !listingData.map((data) => {
+                            const source =
+                              data.listing.orderbook === 'reservoir' &&
+                              client?.source
+                                ? client?.source
+                                : data.marketplace.name
+                            return (
+                              <a
+                                key={data.listing.orderbook}
+                                target="_blank"
+                                href={`${client?.apiBase}/redirect/sources/${source}/tokens/${token?.token?.contract}:${token?.token?.tokenId}/link/v2`}
+                              >
+                                <Image
+                                  css={{ width: 24 }}
+                                  src={data.marketplace.imageUrl}
+                                />
+                              </a>
+                            )
+                          })
+                        }
+                      </Flex>
+                    </Box>
                   </Flex>
                 </MainContainer>
               </ContentContainer>

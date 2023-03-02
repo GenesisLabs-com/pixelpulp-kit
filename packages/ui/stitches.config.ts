@@ -101,6 +101,7 @@ export const {
     }),
   },
   media: {
+    bp0: '(max-width: 480px)',
     bp1: '(min-width: 600px)',
     bp2: '(min-width: 905px)',
     bp3: '(min-width: 1240px)',

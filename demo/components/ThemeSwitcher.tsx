@@ -35,20 +35,21 @@ const getThemeFromOption = (option: string) => {
     }
     case 'decent': {
       return lightTheme({
-        font: 'ABC Monument Grotesk',
-        primaryColor: 'black',
-        primaryHoverColor: 'rgb(153 105 255)',
-        headerBackground: 'rgb(246, 234, 229)',
-        contentBackground: '#fbf3f0',
-        footerBackground: 'rgb(246, 234, 229)',
-        textColor: 'rgb(55, 65, 81)',
-        borderColor: 'rgba(0,0,0, 0)',
-        overlayBackground: 'rgba(31, 41, 55, 0.75)',
+        font: 'Poppins',
+        primaryColor: '#1E1B1B',
+        primaryHoverColor: '#1E1B1B',
+        headerBackground: '#fff',
+        contentBackground: '#000',
+        footerBackground: '#fff',
+        textColor: '#1E1B1B',
+        pColor: '#909090',
+        borderColor: 'none',
+        overlayBackground: 'rgba(30, 27, 27, 0.6)',
       })
     }
     case 'reservoir': {
       return lightTheme({
-        font: 'Inter',
+        font: 'Poppins',
         primaryColor: '#7000FF',
       })
     }

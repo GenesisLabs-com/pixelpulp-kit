@@ -8,6 +8,7 @@ import {
   FormatCurrency,
   FormatCryptoCurrency,
 } from '../primitives'
+// import Fees from './acceptBid/Fees'
 
 type Props = {
   img?: string
@@ -21,7 +22,9 @@ type Props = {
   expires?: string
   warning?: string
   isOffer?: boolean
+  fees?: any
   isUnavailable?: boolean
+  image?: any
 }
 
 const Img = styled('img', {
@@ -45,83 +48,170 @@ const TokenPrimitive: FC<Props> = ({
 }) => {
   return (
     <Box>
-      <Flex css={{ justifyContent: 'space-between', alignItems: 'center' }}>
-        <Text
-          style="subtitle2"
-          color="subtle"
-          css={{ mb: 10, display: 'block' }}
-        >
-          {name ? 'Item' : 'Collection'}
-        </Text>
-        {isOffer && (
-          <Text
-            style="subtitle2"
-            color="subtle"
-            css={{ mb: 10, display: 'block' }}
-          >
-            Offer
-          </Text>
-        )}
-      </Flex>
-      <Flex css={{ justifyContent: 'space-between' }}>
-        <Flex css={{ alignItems: 'center', gap: 8 }}>
-          <Img
-            src={img}
-            alt={name}
-            css={{
-              borderRadius: 4,
-              overflow: 'hidden',
-              visibility: !img || img.length === 0 ? 'hidden' : 'visible',
-              flexShrink: 0,
-              objectFit: 'cover',
-            }}
-          />
-          <Grid css={{ rowGap: 2 }}>
-            <Text
-              style="h6"
-              ellipsify
-              color={isUnavailable ? 'subtle' : 'base'}
+      <Flex css={{ justifyContent: 'space-between', flexDirection: 'column' }}>
+        <Flex justify="between">
+          <Flex justify="start">
+            <Box
+              css={{
+                display: 'flex',
+                mr: '$4',
+                width: 60,
+              }}
             >
-              {name ? name : collection}
+              {' '}
+              <Img
+                src={img}
+                alt={name}
+                css={{
+                  borderRadius: 12,
+                  overflow: 'hidden',
+                  visibility: !img || img.length === 0 ? 'hidden' : 'visible',
+                  flexShrink: 0,
+                  objectFit: 'cover',
+                  width: 60,
+                  height: 60,
+                }}
+              />
+            </Box>
+            <Grid css={{ rowGap: 2 }}>
+              <Text
+                style="h5"
+                ellipsify
+                color={isUnavailable ? 'blackWhite' : 'base'}
+              >
+                {name ? name : collection}
+              </Text>
+              {name && (
+                <Text style="body2" color={isUnavailable ? 'subtle' : 'base'}>
+                  {collection}
+                </Text>
+              )}
+            </Grid>
+          </Flex>
+          <Flex justify="end">
+            {' '}
+            {source && (
+              <Img
+                src={source}
+                alt="Source Icon"
+                css={{
+                  w: 23,
+                  h: 23,
+                  borderRadius: 99999,
+                  overflow: 'hidden',
+                }}
+              />
+            )}
+          </Flex>
+        </Flex>
+        {/* <Flex
+          css={{
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            my: '1rem',
+          }}
+        >
+          <Flex
+            align="start"
+            justify="between"
+            className="rk-stat-well"
+            direction="column"
+            css={{
+              backgroundColor: 'transparent',
+              p: 0,
+              overflow: 'hidden',
+            }}
+          >
+            <Flex
+              css={{
+                flex: 1,
+                minWidth: '0',
+                alignItems: 'center',
+                fontSize: '0.875rem',
+                fontWeight: 500,
+                color: '$pColor',
+              }}
+            >
+              Expires in
+            </Flex>
+
+            <Text
+              style="subtitle1"
+              color="blackWhite"
+              as="p"
+              css={{
+                marginLeft: '0',
+              }}
+              ellipsify
+            >
+              {!!expires && <> {expires}</>}
             </Text>
-            {name && (
-              <Text style="body2" color={isUnavailable ? 'subtle' : 'base'}>
-                {collection}
+          </Flex>
+        </Flex> */}
+        <Flex
+          align="start"
+          justify="between"
+          className="rk-stat-well"
+          direction="row"
+          css={{
+            width: '100%',
+            backgroundColor: '$priceBackground',
+            borderRadius: '0.75rem',
+            mt: '1rem',
+            p: '0.75rem',
+          }}
+        >
+          <Flex
+            css={{
+              flex: 1,
+              minWidth: '0',
+              alignItems: 'center',
+              fontSize: '0.875rem',
+              fontWeight: 500,
+              color: '$pColor',
+            }}
+          >
+            Price
+          </Flex>
+          <Box
+            css={{
+              display: 'flex',
+              alignItems: 'flex-end',
+              justifyContent: 'flex-end',
+              flexDirection: 'column',
+              rowGap: 4,
+            }}
+          >
+            {price ? (
+              <FormatCryptoCurrency
+                amount={price}
+                textColor={isUnavailable ? 'blackWhite' : 'base'}
+                address={currencyContract}
+                decimals={currencyDecimals}
+                logoWidth={14.5}
+              />
+            ) : (
+              <Text
+                style="subtitle2"
+                color={isUnavailable ? 'blackWhite' : 'base'}
+              >
+                --
               </Text>
             )}
-            {!!expires && <Text style="tiny">Expires {expires}</Text>}
-          </Grid>
+            {usdPrice ? (
+              <FormatCurrency
+                amount={usdPrice}
+                style="subtitle2"
+                color="blackWhite"
+              />
+            ) : null}
+            {warning && (
+              <Text style="subtitle2" color="error">
+                {warning}
+              </Text>
+            )}
+          </Box>
         </Flex>
-        <Grid css={{ justifyItems: 'end', alignContent: 'start', rowGap: 4 }}>
-          {source && (
-            <Img
-              src={source}
-              alt="Source Icon"
-              css={{ w: 17, h: 17, borderRadius: 99999, overflow: 'hidden' }}
-            />
-          )}
-          {price ? (
-            <FormatCryptoCurrency
-              amount={price}
-              textColor={isUnavailable ? 'subtle' : 'base'}
-              address={currencyContract}
-              decimals={currencyDecimals}
-              logoWidth={14.5}
-            />
-          ) : (
-            <Text style="subtitle2" color={isUnavailable ? 'subtle' : 'base'}>
-              --
-            </Text>
-          )}
-          {usdPrice ? (
-            <FormatCurrency amount={usdPrice} style="tiny" color="subtle" />
-          ) : null}
-          {warning && (
-            <Text style="subtitle2" color="error">
-              {warning}
-            </Text>
-          )}
-        </Grid>
       </Flex>
     </Box>
   )
