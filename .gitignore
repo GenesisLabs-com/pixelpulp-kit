@@ -13,3 +13,6 @@ demo/.env
 !.yarn/sdks
 !.yarn/versions
 
+.idea/
+.yarnrc.yml
+.yarn

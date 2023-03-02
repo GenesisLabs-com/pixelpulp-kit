@@ -13,7 +13,7 @@ type Props = {
 } & Parameters<StyledComponent>['0']
 
 const StyledImg = styled('img', {
-  w: '1rem'
+  w: '1rem',
 })
 
 const CryptoCurrencyIcon: FC<Props> = ({

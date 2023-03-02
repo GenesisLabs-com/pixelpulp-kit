@@ -8,7 +8,7 @@ import { Currency } from '../../types/Currency'
 const Img = styled('img', {
   width: 16,
   height: 16,
-  ml: 5, 
+  ml: 5,
 })
 
 type Props = {

@@ -217,7 +217,7 @@ export function AcceptBidModal({
                   </Button>
                 </Flex>
               )}
-              
+
               {acceptBidStep === AcceptBidStep.Checkout && !loading && (
                 <Flex direction="column">
                   {transactionError && (
