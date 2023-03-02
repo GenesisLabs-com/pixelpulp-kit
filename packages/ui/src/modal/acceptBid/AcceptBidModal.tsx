@@ -13,10 +13,7 @@ import {
 
 import { Progress } from './Progress'
 import { Modal } from '../Modal'
-import {
-  faCircleExclamation,
-  faCheckCircle,
-} from '@fortawesome/free-solid-svg-icons'
+import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import TokenLineItem from '../TokenLineItem'
 import {
@@ -27,6 +24,7 @@ import {
 import Fees from './Fees'
 import { useFallbackState, useReservoirClient, useTimeSince } from '../../hooks'
 import { useNetwork } from 'wagmi'
+import BidAcceptedIcon from '../../img/BidAcceptedIcon'
 
 type BidData = {
   tokenId?: string
@@ -56,7 +54,7 @@ function titleForStep(step: AcceptBidStep) {
     case AcceptBidStep.Unavailable:
       return 'Selected item is no longer available'
     default:
-      return 'Accept Offer'
+      return 'Accept Bid'
   }
 }
 
@@ -181,103 +179,67 @@ export function AcceptBidModal({
             }}
             loading={loading}
           >
-            {acceptBidStep === AcceptBidStep.Unavailable && !loading && (
-              <Flex direction="column">
-                <TokenLineItem
-                  tokenDetails={token}
-                  collection={collection}
-                  usdConversion={usdPrice || 0}
-                  isUnavailable={true}
-                  price={bidAmount}
-                  warning={warning}
-                  currency={bidAmountCurrency}
-                  expires={expires}
-                  isOffer={true}
-                  sourceImg={source?.icon ? (source.icon as string) : undefined}
-                />
-                <Button onClick={() => setOpen(false)} css={{ m: '$4' }}>
-                  Close
-                </Button>
-              </Flex>
-            )}
-
-            {acceptBidStep === AcceptBidStep.Checkout && !loading && (
-              <Flex direction="column">
-                {transactionError && (
-                  <Flex
-                    css={{
-                      color: '$errorAccent',
-                      p: '$4',
-                      gap: '$2',
-                      background: '$wellBackground',
-                    }}
-                    align="center"
-                  >
-                    <FontAwesomeIcon
-                      icon={faCircleExclamation}
-                      width={16}
-                      height={16}
-                    />
-                    <Text style="body2" color="errorLight">
-                      {transactionError.message}
-                    </Text>
-                  </Flex>
-                )}
-                <TokenLineItem
-                  tokenDetails={token}
-                  collection={collection}
-                  usdConversion={usdPrice || 0}
-                  price={bidAmount}
-                  warning={warning}
-                  currency={bidAmountCurrency}
-                  expires={expires}
-                  isOffer={true}
-                  sourceImg={source?.icon ? (source.icon as string) : undefined}
-                />
-                <Fees fees={fees} marketplace={marketplace.name} />
-
-                <Flex
-                  align="center"
-                  justify="between"
-                  css={{ px: '$4', mt: '$4' }}
-                >
-                  <Text style="h6">You Get</Text>
-                  <FormatCryptoCurrency
-                    textStyle="h6"
-                    amount={totalPrice}
-                    address={bidAmountCurrency?.contract}
-                    logoWidth={16}
-                  />
-                </Flex>
-                <Flex justify="end">
-                  <FormatCurrency
-                    amount={totalUsd}
-                    color="subtle"
-                    css={{ mr: '$4' }}
-                  />
-                </Flex>
-
-                <Button
-                  style={{
-                    flex: 1,
-                    marginBottom: 16,
-                    marginTop: 16,
-                    marginRight: 16,
-                    marginLeft: 16,
-                  }}
-                  color="primary"
-                  onClick={acceptBid}
-                >
-                  Accept
-                </Button>
-              </Flex>
-            )}
-
-            {(acceptBidStep === AcceptBidStep.Confirming ||
-              acceptBidStep === AcceptBidStep.Finalizing ||
-              acceptBidStep === AcceptBidStep.ApproveMarketplace) &&
-              token && (
+            <Box
+              css={{
+                p: '1.625rem',
+                '@bp0': {
+                  p: '1rem 0.875rem',
+                },
+              }}
+            >
+              {acceptBidStep === AcceptBidStep.Unavailable && !loading && (
                 <Flex direction="column">
+                  <TokenLineItem
+                    tokenDetails={token}
+                    collection={collection}
+                    usdConversion={usdPrice || 0}
+                    isUnavailable={true}
+                    price={bidAmount}
+                    warning={warning}
+                    currency={bidAmountCurrency}
+                    expires={expires}
+                    isOffer={true}
+                    sourceImg={
+                      source?.icon ? (source.icon as string) : undefined
+                    }
+                  />
+                  <Button
+                    onClick={() => setOpen(false)}
+                    css={{
+                      borderRadius: '0.75rem',
+                      fontSize: '1rem',
+                      fontWeight: 500,
+                      mt: '2.5rem',
+                      width: '100%',
+                    }}
+                  >
+                    Close
+                  </Button>
+                </Flex>
+              )}
+              
+              {acceptBidStep === AcceptBidStep.Checkout && !loading && (
+                <Flex direction="column">
+                  {transactionError && (
+                    <Flex
+                      css={{
+                        color: '$errorAccent',
+                        p: '$4',
+                        gap: '$2',
+                        background: '$wellBackground',
+                      }}
+                      align="center"
+                    >
+                      <FontAwesomeIcon
+                        icon={faCircleExclamation}
+                        width={16}
+                        height={16}
+                      />
+                      <Text style="body2" color="errorLight">
+                        {transactionError.message}
+                      </Text>
+                    </Flex>
+                  )}
                   <TokenLineItem
                     tokenDetails={token}
                     collection={collection}
@@ -291,102 +253,179 @@ export function AcceptBidModal({
                       source?.icon ? (source.icon as string) : undefined
                     }
                   />
-                  <Progress
-                    acceptBidStep={acceptBidStep}
-                    etherscanBaseUrl={`${etherscanBaseUrl}/tx/${txHash}`}
-                    marketplace={marketplace}
-                    tokenImage={tokenImage}
-                    stepData={stepData}
-                  />
-                  <Button disabled={true} css={{ m: '$4' }}>
-                    <Loader />
-                    {acceptBidStep === AcceptBidStep.Confirming
-                      ? 'Waiting for approval...'
-                      : 'Waiting for transaction to be validated'}
+                  <Fees fees={fees} marketplace={marketplace.name} />
+
+                  <Flex
+                    align="center"
+                    justify="between"
+                    css={{
+                      alignItems: 'baseline',
+                      justifyContent: 'space-between',
+                      backgroundColor: '$priceBackground',
+                      borderRadius: '0.75rem',
+                      padding: '1rem',
+                      my: '1rem',
+                    }}
+                  >
+                    <Text style="body4" color="blackWhite">
+                      You Receive/Get
+                    </Text>
+                    <Flex justify="end" direction="column">
+                      <FormatCryptoCurrency
+                        textStyle="h6"
+                        amount={totalPrice}
+                        address={bidAmountCurrency?.contract}
+                        logoWidth={16}
+                      />
+                      <FormatCurrency
+                        amount={totalUsd}
+                        style="body2"
+                        color="blackWhite"
+                      />
+                    </Flex>
+                  </Flex>
+
+                  <Button
+                    css={{
+                      borderRadius: '0.75rem',
+                      fontSize: '1rem',
+                      fontWeight: 500,
+                      width: '100%',
+                    }}
+                    color="primary"
+                    onClick={acceptBid}
+                  >
+                    Accept
                   </Button>
                 </Flex>
               )}
+              {(acceptBidStep === AcceptBidStep.Confirming ||
+                acceptBidStep === AcceptBidStep.Finalizing ||
+                acceptBidStep === AcceptBidStep.ApproveMarketplace) &&
+                token && (
+                  <Flex direction="column">
+                    <TokenLineItem
+                      tokenDetails={token}
+                      collection={collection}
+                      usdConversion={usdPrice || 0}
+                      price={bidAmount}
+                      warning={warning}
+                      currency={bidAmountCurrency}
+                      expires={expires}
+                      isOffer={true}
+                      sourceImg={
+                        source?.icon ? (source.icon as string) : undefined
+                      }
+                    />
+                    <Progress
+                      acceptBidStep={acceptBidStep}
+                      etherscanBaseUrl={`${etherscanBaseUrl}/tx/${txHash}`}
+                      marketplace={marketplace}
+                      tokenImage={tokenImage}
+                      stepData={stepData}
+                    />
+                    <Button
+                      disabled={true}
+                      css={{
+                        borderRadius: '0.75rem',
+                        fontSize: '1rem',
+                        fontWeight: 500,
+                        width: '100%',
+                      }}
+                    >
+                      <Loader />
+                      {acceptBidStep === AcceptBidStep.Confirming
+                        ? 'Waiting for approval...'
+                        : 'Waiting for transaction to be validated'}
+                    </Button>
+                  </Flex>
+                )}
 
-            {acceptBidStep === AcceptBidStep.Complete && token && (
-              <Flex direction="column">
-                <Flex
-                  css={{
-                    p: '$4',
-                    py: '$5',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    textAlign: 'center',
-                  }}
-                >
-                  {' '}
-                  <Box
+              {acceptBidStep === AcceptBidStep.Complete && token && (
+                <Flex direction="column">
+                  <Flex
                     css={{
-                      color: '$successAccent',
-                      mb: 24,
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      textAlign: 'center',
+                      p: 0,
                     }}
                   >
-                    <FontAwesomeIcon icon={faCheckCircle} fontSize={32} />
-                  </Box>
-                  <Text style="h5" css={{ mb: 8 }}>
-                    Bid accepted!
-                  </Text>
-                  <Flex
-                    css={{ mb: 24, maxWidth: '100%' }}
-                    align="center"
-                    justify="center"
-                  >
-                    <Text
-                      style="subtitle2"
-                      css={{ maxWidth: '100%' }}
-                      ellipsify
+                    {' '}
+                    <Box
+                      css={{
+                        w: 48,
+                        h: 48,
+                        m: '1.25rem auto',
+                        display: 'flex',
+                      }}
                     >
-                      You’ve sold{' '}
+                      {/* <FontAwesomeIcon icon={faCheckCircle} fontSize={32} /> */}
+                      <BidAcceptedIcon />
+                    </Box>
+                    <Text style="h4" css={{ mb: 8 }}>
+                      Bid Accepted!
+                    </Text>
+                    <Flex
+                      css={{ mb: 24, maxWidth: '100%' }}
+                      align="center"
+                      justify="center"
+                    >
+                      <Text
+                        style="body4"
+                        css={{ maxWidth: '100%', color: '$pColor' }}
+                        ellipsify
+                      >
+                        You’ve sold{' '}
+                        <Anchor
+                          color="primary"
+                          weight="medium"
+                          css={{ fontSize: 12 }}
+                          href={`${client?.apiBase}/redirect/sources/${client?.source}/tokens/${token?.token?.contract}:${token?.token?.tokenId}/link/v2`}
+                          target="_blank"
+                        >
+                          {token?.token?.name
+                            ? token?.token?.name
+                            : `#${token?.token?.tokenId}`}
+                        </Anchor>{' '}
+                        from the {token?.token?.collection?.name} collection.
+                      </Text>
+                    </Flex>
+                    <Flex
+                      css={{
+                        flexDirection: 'column',
+                        mt: '2.5rem 0 0',
+                        w: '100%',
+                      }}
+                    >
+                      <Button
+                        css={{
+                          borderRadius: '0.75rem',
+                          fontSize: '1rem',
+                          fontWeight: 500,
+                          width: '100%',
+                        }}
+                        onClick={() => {
+                          setOpen(false)
+                        }}
+                      >
+                        Done
+                      </Button>
                       <Anchor
                         color="primary"
-                        weight="medium"
-                        css={{ fontSize: 12 }}
-                        href={`${client?.apiBase}/redirect/sources/${client?.source}/tokens/${token.token?.contract}:${token?.token?.tokenId}/link/v2`}
+                        css={{ fontSize: 16, fontWeight: 600, mt: '1rem' }}
+                        href={`${etherscanBaseUrl}/tx/${txHash}`}
                         target="_blank"
                       >
-                        {token?.token?.name
-                          ? token?.token?.name
-                          : `#${token?.token?.tokenId}`}
-                      </Anchor>{' '}
-                      from the {token?.token?.collection?.name} collection.
-                    </Text>
+                        View on{' '}
+                        {activeChain?.blockExplorers?.default.name ||
+                          'Etherscan'}
+                      </Anchor>
+                    </Flex>
                   </Flex>
-                  <Anchor
-                    color="primary"
-                    weight="medium"
-                    css={{ fontSize: 12 }}
-                    href={`${etherscanBaseUrl}/tx/${txHash}`}
-                    target="_blank"
-                  >
-                    View on{' '}
-                    {activeChain?.blockExplorers?.default.name || 'Etherscan'}
-                  </Anchor>
                 </Flex>
-                <Flex
-                  css={{
-                    p: '$4',
-                    flexDirection: 'column',
-                    gap: '$3',
-                    '@bp1': {
-                      flexDirection: 'row',
-                    },
-                  }}
-                >
-                  <Button
-                    css={{ width: '100%' }}
-                    onClick={() => {
-                      setOpen(false)
-                    }}
-                  >
-                    Done
-                  </Button>
-                </Flex>
-              </Flex>
-            )}
+              )}
+            </Box>
           </Modal>
         )
       }}

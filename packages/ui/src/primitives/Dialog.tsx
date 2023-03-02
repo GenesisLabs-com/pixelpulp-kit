@@ -38,10 +38,10 @@ const AnimatedOverlay = forwardRef<
 
 const Content = styled(DialogPrimitive.Content, {
   backgroundColor: '$contentBackground',
-  borderRadius: '$borderRadius',
+  borderRadius: '0.75rem',
   $$shadowColor: '$colors$gray7',
   boxShadow: 'box-shadow: 0px 2px 16px $$shadowColor',
-  border: '1px solid $borderColor',
+  border: 'none',
   position: 'fixed',
   left: '50%',
   maxWidth: 516,
@@ -168,7 +168,7 @@ const Dialog = forwardRef<
                 {...props}
                 forceMount
                 css={{
-                  maxWidth: size === ModalSize.MD ? 516 : 750,
+                  maxWidth: size === ModalSize.MD ? 500 : 571,
                 }}
               >
                 {children}

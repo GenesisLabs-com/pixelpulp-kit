@@ -8,6 +8,7 @@ import { Currency } from '../../types/Currency'
 const Img = styled('img', {
   width: 16,
   height: 16,
+  ml: 5, 
 })
 
 type Props = {
@@ -23,17 +24,18 @@ const ListingStat: FC<Props> = ({ listing, marketImg, currency, ...props }) => {
 
   return (
     <Flex
-      direction="column"
+      direction="row"
       className="rk-stat-well"
       css={{
         backgroundColor: '$wellBackground',
-        p: '$2',
-        borderRadius: '$borderRadius',
+        p: '1rem',
+        borderRadius: '0.75rem',
         gap: '$1',
+        justifyContent: 'space-between',
       }}
       {...props}
     >
-      <Flex justify="between">
+      <Flex justify="start">
         <FormatCryptoCurrency
           amount={listing.weiPrice}
           textStyle="subtitle2"
@@ -42,7 +44,7 @@ const ListingStat: FC<Props> = ({ listing, marketImg, currency, ...props }) => {
         />
         <Img src={marketImg} />
       </Flex>
-      <Text style="subtitle2" color="subtle" as="p" css={{ flex: 1 }}>
+      <Text style="subtitle2" color="subtle" as="p">
         {listing.expirationTime ? `Expires ${timeSince}` : 'No Expiration'}
       </Text>
     </Flex>

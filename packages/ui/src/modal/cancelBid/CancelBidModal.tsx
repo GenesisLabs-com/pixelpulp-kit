@@ -8,6 +8,7 @@ import Progress from '../Progress'
 import { useNetwork } from 'wagmi'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
+import OfferCancelledIcon from '../../img/OfferCancelledIcon'
 
 type Props = Pick<Parameters<typeof Modal>['0'], 'trigger'> & {
   openState?: [boolean, Dispatch<SetStateAction<boolean>>]
@@ -86,7 +87,7 @@ export function CancelBidModal({
         return (
           <Modal
             trigger={trigger}
-            title="Cancel Offer"
+            title="Cancel your Offer"
             open={open}
             onOpenChange={(open) => {
               if (!open && onClose) {
@@ -100,167 +101,225 @@ export function CancelBidModal({
             }}
             loading={loading}
           >
-            {!isBidAvailable && !loading && (
-              <Flex
-                direction="column"
-                justify="center"
-                css={{ px: '$4', py: '$6' }}
-              >
-                <Text style="h6" css={{ textAlign: 'center' }}>
-                  Selected bid is no longer available
-                </Text>
-              </Flex>
-            )}
-            {isBidAvailable && cancelStep === CancelStep.Cancel && (
-              <Flex direction="column">
-                {transactionError && (
+            <Box
+              css={{
+                p: '1.625rem',
+                '@bp0': {
+                  p: '1rem 0.875rem',
+                },
+              }}
+            >
+              {!isBidAvailable && !loading && (
+                <Flex
+                  direction="column"
+                  justify="center"
+                  css={{ px: '$4', py: '$6' }}
+                >
+                  <Text
+                    style="h5"
+                    color="blackWhite"
+                    css={{ textAlign: 'center' }}
+                  >
+                    Selected bid is no longer available
+                  </Text>
+                </Flex>
+              )}
+              {isBidAvailable && cancelStep === CancelStep.Cancel && (
+                <Flex direction="column" justify="center">
+                  {transactionError && (
+                    <Flex
+                      css={{
+                        color: '$errorAccent',
+                        borderRadius: '0.75rem',
+                        p: '1rem',
+                        gap: '$2',
+                        background: '$priceBackground',
+                      }}
+                      align="center"
+                    >
+                      <FontAwesomeIcon
+                        icon={faCircleExclamation}
+                        width={16}
+                        height={16}
+                      />
+                      <Text style="body2" color="errorLight">
+                        {transactionError.message}
+                      </Text>
+                    </Flex>
+                  )}
+                  <Box>
+                    <TokenPrimitive
+                      img={bidImg}
+                      name={bid?.criteria?.data?.token?.name}
+                      price={bid?.price?.amount?.decimal}
+                      usdPrice={totalUsd}
+                      collection={bid?.criteria?.data?.collection?.name || ''}
+                      currencyContract={bid?.price?.currency?.contract}
+                      currencyDecimals={bid?.price?.currency?.decimals}
+                      expires={expires}
+                      source={(bid?.source?.icon as string) || ''}
+                      isOffer={true}
+                    />
+                  </Box>
+                  <Text
+                    style="body3"
+                    color="subtle"
+                    css={{ my: '2.5rem', textAlign: 'center' }}
+                  >
+                    This will cancel your offer. You will be asked to confirm
+                    this cancelation from your wallet.
+                  </Text>
+                  <Button
+                    onClick={cancelOrder}
+                    css={{
+                      borderRadius: '0.75rem',
+                      fontSize: '1rem',
+                      fontWeight: 500,
+                      width: '100%',
+                    }}
+                  >
+                    Continue to Cancel
+                  </Button>
+                </Flex>
+              )}
+              {cancelStep === CancelStep.Approving && (
+                <Flex direction="column">
+                  <TokenPrimitive
+                    img={bidImg}
+                    name={bid?.criteria?.data?.token?.name}
+                    price={bid?.price?.amount?.decimal}
+                    usdPrice={totalUsd}
+                    collection={bid?.criteria?.data?.collection?.name || ''}
+                    currencyContract={bid?.price?.currency?.contract}
+                    currencyDecimals={bid?.price?.currency?.decimals}
+                    expires={expires}
+                    source={(bid?.source?.icon as string) || ''}
+                    isOffer={true}
+                  />
+                  {!stepData && <Loader css={{ height: 206 }} />}
+                  {stepData && (
+                    <>
+                      <Progress
+                        title={
+                          stepData?.currentStepItem.txHash
+                            ? 'Finalizing on blockchain'
+                            : 'Confirm cancelation in your wallet'
+                        }
+                        txHash={stepData?.currentStepItem.txHash}
+                        blockExplorerBaseUrl={`${blockExplorerBaseUrl}/tx/${stepData?.currentStepItem.txHash}`}
+                      />
+                      {isAttributeOffer && !stepData?.currentStepItem.txHash && (
+                        <Flex justify="center">
+                          <Text
+                            style="body3"
+                            color="subtle"
+                            css={{
+                              maxWidth: 400,
+                              textAlign: 'center',
+                              mx: '$3',
+                            }}
+                          >
+                            This will cancel your offer on all items that were
+                            included in this attribute offer.
+                          </Text>
+                        </Flex>
+                      )}
+                    </>
+                  )}
+                  <Button
+                    disabled={true}
+                    css={{
+                      borderRadius: '0.75rem',
+                      fontSize: '1rem',
+                      fontWeight: 500,
+                      width: '100%',
+                    }}
+                  >
+                    <Loader />
+                    {stepData?.currentStepItem.txHash
+                      ? 'Waiting for transaction to be validated'
+                      : 'Waiting for approval...'}
+                  </Button>
+                </Flex>
+              )}
+              {cancelStep === CancelStep.Complete && (
+                <Flex direction="column">
                   <Flex
                     css={{
-                      color: '$errorAccent',
                       p: '$4',
-                      gap: '$2',
-                      background: '$wellBackground',
+                      py: '$5',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      textAlign: 'center',
                     }}
-                    align="center"
                   >
-                    <FontAwesomeIcon
-                      icon={faCircleExclamation}
-                      width={16}
-                      height={16}
-                    />
-                    <Text style="body2" color="errorLight">
-                      {transactionError.message}
+                    <Box
+                      css={{
+                        w: 48,
+                        h: 48,
+                        m: '1.25rem auto',
+                        display: 'flex',
+                      }}
+                    >
+                      <OfferCancelledIcon />
+                    </Box>
+                    <Text style="h5" css={{ mb: '$2' }}>
+                      Offer Cancelled!
+                    </Text>
+                    <Text
+                      style="body4"
+                      css={{ maxWidth: '100%', color: '$pColor' }}
+                      ellipsify
+                    >
+                      <>
+                        Your{' '}
+                        <Text style="body3" color="accent">
+                          {bid?.source?.name as string}
+                        </Text>{' '}
+                        offer for{' '}
+                        <Text style="body3" color="accent">
+                          {bid?.criteria?.data?.token?.name ||
+                            bid?.criteria?.data?.collection?.name}{' '}
+                        </Text>
+                        at {bid?.price?.amount?.decimal}{' '}
+                        {bid?.price?.currency?.symbol} has been cancelled.
+                      </>
                     </Text>
                   </Flex>
-                )}
-                <Box css={{ p: '$4', borderBottom: '1px solid $borderColor' }}>
-                  <TokenPrimitive
-                    img={bidImg}
-                    name={bid?.criteria?.data?.token?.name}
-                    price={bid?.price?.amount?.decimal}
-                    usdPrice={totalUsd}
-                    collection={bid?.criteria?.data?.collection?.name || ''}
-                    currencyContract={bid?.price?.currency?.contract}
-                    currencyDecimals={bid?.price?.currency?.decimals}
-                    expires={expires}
-                    source={(bid?.source?.icon as string) || ''}
-                    isOffer={true}
-                  />
-                </Box>
-                <Text
-                  style="body3"
-                  color="subtle"
-                  css={{ mt: '$3', mr: '$3', ml: '$3', textAlign: 'center' }}
-                >
-                  This will cancel your offer. You will be asked to confirm this
-                  cancelation from your wallet.
-                </Text>
-                <Button onClick={cancelOrder} css={{ m: '$4' }}>
-                  Continue to Cancel
-                </Button>
-              </Flex>
-            )}
-            {cancelStep === CancelStep.Approving && (
-              <Flex direction="column">
-                <Box css={{ p: '$4', borderBottom: '1px solid $borderColor' }}>
-                  <TokenPrimitive
-                    img={bidImg}
-                    name={bid?.criteria?.data?.token?.name}
-                    price={bid?.price?.amount?.decimal}
-                    usdPrice={totalUsd}
-                    collection={bid?.criteria?.data?.collection?.name || ''}
-                    currencyContract={bid?.price?.currency?.contract}
-                    currencyDecimals={bid?.price?.currency?.decimals}
-                    expires={expires}
-                    source={(bid?.source?.icon as string) || ''}
-                    isOffer={true}
-                  />
-                </Box>
-                {!stepData && <Loader css={{ height: 206 }} />}
-                {stepData && (
-                  <>
-                    <Progress
-                      title={
-                        stepData?.currentStepItem.txHash
-                          ? 'Finalizing on blockchain'
-                          : 'Confirm cancelation in your wallet'
-                      }
-                      txHash={stepData?.currentStepItem.txHash}
-                      blockExplorerBaseUrl={`${blockExplorerBaseUrl}/tx/${stepData?.currentStepItem.txHash}`}
-                    />
-                    {isAttributeOffer && !stepData?.currentStepItem.txHash && (
-                      <Flex justify="center">
-                        <Text
-                          style="body3"
-                          color="subtle"
-                          css={{ maxWidth: 400, textAlign: 'center', mx: '$3' }}
-                        >
-                          This will cancel your offer on all items that were
-                          included in this attribute offer.
-                        </Text>
-                      </Flex>
-                    )}
-                  </>
-                )}
-                <Button disabled={true} css={{ m: '$4' }}>
-                  <Loader />
-                  {stepData?.currentStepItem.txHash
-                    ? 'Waiting for transaction to be validated'
-                    : 'Waiting for approval...'}
-                </Button>
-              </Flex>
-            )}
-            {cancelStep === CancelStep.Complete && (
-              <Flex direction="column">
-                <Flex
-                  css={{
-                    p: '$4',
-                    py: '$5',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    textAlign: 'center',
-                  }}
-                >
-                  <Text style="h5" css={{ mb: '$2' }}>
-                    Offer Canceled!
-                  </Text>
-                  <Text style="body3" color="subtle" css={{ mb: 24 }}>
-                    <>
-                      Your{' '}
-                      <Text style="body3" color="accent">
-                        {bid?.source?.name as string}
-                      </Text>{' '}
-                      offer for{' '}
-                      <Text style="body3" color="accent">
-                        {bid?.criteria?.data?.token?.name ||
-                          bid?.criteria?.data?.collection?.name}{' '}
-                      </Text>
-                      at {bid?.price?.amount?.decimal}{' '}
-                      {bid?.price?.currency?.symbol} has been canceled.
-                    </>
-                  </Text>
-
-                  <Anchor
-                    color="primary"
-                    weight="medium"
-                    css={{ fontSize: 12 }}
-                    href={`${blockExplorerBaseUrl}/tx/${stepData?.currentStepItem.txHash}`}
-                    target="_blank"
+                  <Flex
+                    css={{
+                      alignItems: 'center',
+                      flexDirection: 'column',
+                      mt: '2.5rem 0 0',
+                      w: '100%',
+                    }}
                   >
-                    View on{' '}
-                    {activeChain?.blockExplorers?.default.name || 'Etherscan'}
-                  </Anchor>
+                    <Button
+                      onClick={() => {
+                        setOpen(false)
+                      }}
+                      css={{
+                        borderRadius: '0.75rem',
+                        fontSize: '1rem',
+                        fontWeight: 500,
+                        width: '100%',
+                      }}
+                    >
+                      Close
+                    </Button>
+                    <Anchor
+                      color="primary"
+                      css={{ fontSize: 16, fontWeight: 600, mt: '1rem' }}
+                      href={`${blockExplorerBaseUrl}/tx/${stepData?.currentStepItem.txHash}`}
+                      target="_blank"
+                    >
+                      View on{' '}
+                      {activeChain?.blockExplorers?.default.name || 'Etherscan'}
+                    </Anchor>
+                  </Flex>
                 </Flex>
-                <Button
-                  onClick={() => {
-                    setOpen(false)
-                  }}
-                  css={{ m: '$4' }}
-                >
-                  Close
-                </Button>
-              </Flex>
-            )}
+              )}
+            </Box>
           </Modal>
         )
       }}

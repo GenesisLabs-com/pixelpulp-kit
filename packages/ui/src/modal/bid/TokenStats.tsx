@@ -97,12 +97,7 @@ const TokenStats: FC<Props> = ({ token, collection, trait }) => {
     <Flex
       css={{
         width: '100%',
-        flexDirection: 'row',
-        '@bp1': {
-          width: 220,
-          flexDirection: 'column',
-        },
-        p: '$4',
+        flexDirection: 'column',
       }}
     >
       <TokenStatsHeader collection={collection} token={token} />
@@ -120,9 +115,57 @@ const TokenStats: FC<Props> = ({ token, collection, trait }) => {
         />
         <Box
           css={{
-            flex: 1,
-            [`& ${Stat}:not(:last-child)`]: {
-              mb: '$1',
+            display: 'flex',
+            justifyContent: 'space-between',
+            flexDirection: 'row',
+            alignItems: 'baseline',
+            mt: '$4',
+            [`& ${Stat}:nth-child(2)`]: {
+              justifyContent: 'center',
+              minWidth: '6.5rem',
+            },
+            [`& ${Stat}:first-child`]: {
+              pl: '0',
+            },
+            [`& ${Stat}:last-child`]: {
+              pl: '1.125rem',
+              borderRight: 'none',
+            },
+            [`& ${Stat}`]: {
+              m: '0 0 1rem',
+              pl: '1rem',
+              w: '33%',
+              borderRight: '1px solid $closeBorder',
+            },
+            '@bp0': {
+              [`& ${Stat}`]: {
+                m: '0 0 1rem',
+                pl: '1rem',
+                w: '50%',
+                borderRight: '1px solid $closeBorder',
+              },
+              [`& ${Stat}:nth-child(2)`]: {
+                borderRight: 'none',
+              },
+              [`& ${Stat}:last-child`]: {
+                pl: '0',
+                borderRight: 'none',
+              },
+            },
+            flexWrap: 'wrap',
+            '@bp1': {
+              flexWrap: 'nowrap',
+              w: 'auto',
+              [`& ${Stat}:not(:last-child)`]: {
+                borderRight: '1px solid $closeBorder',
+              },
+              [`& ${Stat}:not(:first-child)`]: {
+                pl: '1.125rem',
+              },
+              [`& ${Stat}:nth-child(3)`]: {
+                borderRight: 'none',
+                pl: '1.125rem',
+              },
             },
           }}
         >

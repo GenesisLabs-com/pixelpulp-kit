@@ -7,8 +7,8 @@ import optimizeImage from '../../lib/optimizeImage'
 const Img = styled('img', {
   width: '100%',
   '@bp1': {
-    height: 150,
-    width: 150,
+    height: 60,
+    width: 60,
   },
   borderRadius: '$borderRadius',
 })
@@ -26,36 +26,56 @@ const Token: FC<Props> = ({ token, collection }) => {
   return (
     <Box
       css={{
-        mr: '$4',
-        width: 120,
-        '@bp1': {
-          mr: 0,
-          width: '100%',
-        },
+        alignItems: 'center',
+        display: 'flex',
+        justifyContent: 'flex-start',
+        width: '100%',
+        // '@bp1': {
+        //   mr: 0,
+        //   width: '100%',
+        // },
       }}
     >
-      <Text
+      {/* <Text
         style="subtitle2"
         color="subtle"
         css={{ mb: '$1', display: 'block' }}
       >
         Item
-      </Text>
-      <Img
-        src={img}
+      </Text> */}
+      <Box
         css={{
-          mb: '$2',
-          visibility: !img || img.length === 0 ? 'hidden' : 'visible',
-          objectFit: 'cover',
+          display: 'flex',
+          mr: '$4',
+          width: 60,
         }}
-      />
-      <Text style="h6" css={{ flex: 1 }} as="h6" ellipsify>
-        {token?.token?.name || `#${token?.token?.tokenId}`}
-      </Text>
-      <Box>
-        <Text style="subtitle2" color="subtle" as="p" ellipsify>
-          {token?.token?.collection?.name}
+      >
+        <Img
+          src={img}
+          css={{
+            visibility: !img || img.length === 0 ? 'hidden' : 'visible',
+            objectFit: 'cover',
+            borderRadius: '0.75rem',
+          }}
+          alt={token?.token?.name || `#${token?.token?.tokenId}`}
+        />
+      </Box>
+      <Box
+        css={{
+          display: 'flex',
+          flexDirection: 'column',
+          width: '100%',
+        }}
+      >
+        <Text
+          style="h5"
+          css={{
+            color: 'blackWhite',
+          }}
+        >
+          {token?.token?.name || `#${token?.token?.tokenId}`}
         </Text>
+        <Text style="subtitle2">{token?.token?.collection?.name}</Text>
       </Box>
     </Box>
   )
