@@ -104,7 +104,7 @@ const TokenPrimitive: FC<Props> = ({
             )}
           </Flex>
         </Flex>
-        <Flex
+        {/* <Flex
           css={{
             justifyContent: 'flex-start',
             alignItems: 'center',
@@ -147,7 +147,7 @@ const TokenPrimitive: FC<Props> = ({
               {!!expires && <> {expires}</>}
             </Text>
           </Flex>
-        </Flex>
+        </Flex> */}
         <Flex
           align="start"
           justify="between"
@@ -157,6 +157,7 @@ const TokenPrimitive: FC<Props> = ({
             width: '100%',
             backgroundColor: '$priceBackground',
             borderRadius: '0.75rem',
+            mt: '1rem',
             p: '0.75rem',
           }}
         >
