@@ -403,7 +403,7 @@ export function ListModal({
                           color="blackWhite"
                           css={{ mb: '$2' }}
                         >
-                          Select other marketplaces to list on
+                          Select other marketplaces for listing
                         </Text>
                       )}
                       {availableMarketplaces
@@ -456,7 +456,7 @@ export function ListModal({
                         fontWeight: 500,
                       }}
                     >
-                      Set your price
+                      Next
                     </Button>
                   </Box>
                 </MainContainer>
@@ -481,7 +481,7 @@ export function ListModal({
                         />
                       </Button>
                       <Text style="subtitle1" as="h3">
-                        Set Your Price
+                        Offer Amount
                       </Text>
                     </Flex>
                     {quantityAvailable > 1 && quantitySelectionAvailable && (
@@ -621,7 +621,7 @@ export function ListModal({
                         width: '100%',
                       }}
                     >
-                      List for sale
+                      Next
                     </Button>
                   </Box>
                 </MainContainer>
